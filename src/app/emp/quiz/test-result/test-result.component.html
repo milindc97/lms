@@ -1,0 +1,111 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+    
+    </section>
+  
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <h4 style="font-weight: 600;">{{quizTitle}}<br><span style="color:#ffbc2c;font-size: 15px;">{{moduleTitle}}</span></h4>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
+          <h2 style="margin-bottom: 2px;font-weight: 600;"><img src="assets/img/checklist.png" class="hidden-xs" style="margin-right: 10px;">{{'Test Results' | translate}}</h2>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+          <h4 style="font-weight: 600;">{{'Date' | translate}}<br><span style="font-size: 15px;">{{quizScore.createdAt | date:'dd-MM-yyyy'}}</span></h4>
+        </div>
+      </div>
+      
+          <div class="box" style="border-top: unset;">
+            <div class="box-body">
+              <h1 class="text-primary text-center">{{'Total Question' | translate}}: <b>{{quizScore.totalQuestion}}</b></h1>
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
+                  <h5 class="name text-primary">{{'Attempted' | translate}}</h5>
+                  <h3 class="name-content text-warning"><span>{{quizScore.totalQuestion-quizScore.skipAnswer}}</span></h3>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
+                  <h5 class="name text-primary">{{'Skipped' | translate}}</h5>
+                  <h3  class="name-content text-dark"><span>{{quizScore.skipAnswer}}</span></h3>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
+                  <h5 class="name text-primary">{{'Correct' | translate}}</h5>
+                  <h3  class="name-content text-success"><span>{{quizScore.correctAnswer}}</span></h3>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
+                  <h5 class="name text-primary">{{'Wrong' | translate}}</h5>
+                  <h3  class="name-content text-danger"><span>{{quizScore.wrongAnswer}}</span></h3>
+                </div>
+              </div>
+  
+              <hr style="border-width: 2px; border-color:lightgray;width: 80%;">
+  
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-md-offset-4 col-lg-offset-4 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                      <h1 class="text-center text-primary totalscore"><span class="text-success">{{quizScore.correctAnswer}}</span></h1>
+                      <h5 class="text-primary text-center totalscorelabel">{{'TOTAL MARKS' | translate}}</h5>
+                      
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                      <h1 style="color:darkturquoise;white-space: nowrap;text-transform: uppercase;" class="text-center totalscore"><img src="{{baseURL}}/retrieve/{{icon}}/{{authService.currentUserValue.accessToken}}"  onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" class="image" />{{grade}}</h1>
+                      <h6 class="text-center totalscorelabel">{{'GRADE' | translate}}</h6>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-body" style="margin-top: 20px;">
+              <div class="row">
+                
+                <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
+                  <div style="margin-top: 20px;" class="text-center">
+                
+                    <h4 style="margin-bottom: 10px;">{{'Rate your Quiz' | translate}}</h4>
+                    <h2 *ngIf="rating == 1" style="font-weight: bold;color:#C6712F">{{'VERY BAD' | translate}}</h2>
+                    <h2 *ngIf="rating == 2" style="font-weight: bold;color:#C6712F">{{'BAD' | translate}}</h2>
+                    <h2 *ngIf="rating == 3" style="font-weight: bold;color:#C6712F">{{'AVERAGE' | translate}}</h2>
+                    <h2 *ngIf="rating == 4" style="font-weight: bold;color:#C6712F">{{'GOOD' | translate}}</h2>
+                    <h2 *ngIf="rating == 5" style="font-weight: bold;color:#C6712F">{{'LOVED IT' | translate}}</h2>
+                    <ion-icon *ngIf="rating >= 1 && !submitA"  name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 2 && !submitA"  name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 3 && !submitA"  name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 4 && !submitA"  name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 5 && !submitA"  name="star" color="warning" style="font-size: 35px;"></ion-icon>
+      
+                    <ion-icon *ngIf="rating < 1 && !submitA"  name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 2 && !submitA"  name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 3 && !submitA"  name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 4 && !submitA"  name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 5 && !submitA"  name="star-outline" style="font-size: 35px;"></ion-icon><br *ngIf="!submitA">
+  
+                    <ion-icon *ngIf="rating >= 1 && submitA" (click)="rating = 1;" name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 2 && submitA" (click)="rating = 2;" name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 3 && submitA" (click)="rating = 3;" name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 4 && submitA" (click)="rating = 4;" name="star" color="warning" style="margin-right: 5px; font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating >= 5 && submitA" (click)="rating = 5;" name="star" color="warning" style="font-size: 35px;"></ion-icon>
+      
+                    <ion-icon *ngIf="rating < 1 && submitA" (click)="rating = 1;" name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 2 && submitA" (click)="rating = 2;" name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 3 && submitA" (click)="rating = 3;" name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 4 && submitA" (click)="rating = 4;" name="star-outline" style="margin-right: 5px;  font-size: 35px;"></ion-icon>
+                    <ion-icon *ngIf="rating < 5 && submitA" (click)="rating = 5;" name="star-outline" style="font-size: 35px;"></ion-icon><br *ngIf="submitA">
+                    
+                    <button class="btn btn-warning" style="margin-top: 10px;" *ngIf="submitA" (click)="submitRating()">{{'Submit' | translate}}</button>
+                    <hr *ngIf="certificate != ''" style="border-width: 2px; border-color:lightgray;width: 80%;">
+                    <div *ngIf="certificate != ''">
+                      <a href="{{baseURL}}/retrieve/certificate/{{certificate}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="{{baseURL}}/retrieve/certificate/{{certificate}}/{{authService.currentUserValue.accessToken}}" style="width: 18%;"></a>
+                    </div>        
+                  </div>
+                </div>
+                
+              </div>
+             
+            </div>
+          </div>
+    </section>
+  </div>
+  </ion-content>

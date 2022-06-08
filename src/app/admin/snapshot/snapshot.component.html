@@ -1,0 +1,35 @@
+<div class="card widget-content fm-border-radius-15 fm-bg-orangeRedLight f-gotham" id="snapshot">
+  <div class="row fm-width-100 fm-margin-unset">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <h1 style="margin:unset;font-weight:500">{{'Snapshot' | translate}}</h1>
+    </div>
+    <div class="col-lg-8 col-sm-8 col-xs-12">
+      <div class="row">
+        <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+          <div class="text-center text-white pointer"  (click)="openLink('/program/list')">
+            <div class="font-size-lg">{{'Program' | translate}}</div>
+            <h3 style="margin:unset">{{programCount}}</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+          <div class="text-center text-white pointer" (click)="openLink('/courses/list')">
+            <div class="font-size-lg">{{'Course' | translate}}</div>
+            <h3 style="margin:unset">{{courseCount}}</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+          <div class="text-center text-white pointer" (click)="openLink('/module/list')"> 
+            <div class="font-size-lg">{{'Module' | translate}}</div>
+            <h3 style="margin:unset">{{moduleCount}}</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+          <div class="text-center text-white pointer" (click)="openLink('/quiz/list')">
+            <div class="font-size-lg">{{'Quiz' | translate}}</div>
+            <h3 style="margin:unset">{{qbCount}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

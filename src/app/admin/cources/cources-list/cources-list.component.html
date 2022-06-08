@@ -1,0 +1,86 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <div class="hidden-sm hidden-xs" style="float: right;">
+          <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+          <button type="button" class="btn btn-warning" [routerLink]="['/admin/courses/activity/create']">{{'Create Course' | translate}}</button>
+        </div>
+        <div class="form-group hidden-xs hidden-sm" style="float: right; margin-right: 10px;">
+          <select class="form-control" style="background: #ffbc2c !important;
+          color: white; border-color: unset;" (change)="filterByStatus($event)">
+            <option value="2" selected>{{'All' | translate}}</option>
+              <option value="1">Activate</option>
+              <option value="0">Deactivate</option>
+          </select>
+        </div>
+        {{'Courses' | translate}}
+      </h1>
+    </section>
+    <div class="hidden-lg hidden-md" style="padding: 0px 15px 0px 15px;">
+      
+      <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      <button type="button" class="btn btn-warning" [routerLink]="['/admin/courses/activity/create']">{{'Create Program' | translate}}</button>
+      <div class="form-group" style=" margin-right: 10px;">
+        <select class="form-control" style="background: #ffbc2c !important;
+        color: white; border-color: unset;" (change)="filterByStatus($event)">
+          <option value="2" selected>{{'All' | translate}}</option>
+            <option value="1">Activate</option>
+            <option value="0">Deactivate</option>
+        </select>
+      </div>
+    </div>
+    <section class="content">
+      <app-snapshot class="hidden-xs"></app-snapshot>
+      <div class="box box-solid">
+        <div class="box-header">
+          
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th class="text-center">{{'SR' | translate}}</th>
+                  <th class="text-center">{{'Code' | translate}}</th>
+                  <th>{{'Course Title' | translate}}</th>
+                  <th>{{'Modules' | translate}}</th>
+                  <th class="text-center">{{'Status' | translate}}</th>
+                  <th class="text-center">{{'Date' | translate}}</th>
+                  <th class="text-center">{{'Action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of courseData;let i = index">
+                  <td class="text-center text-muted">{{i+1}}</td>
+                  <td class="text-center">C{{item.code}}</td>
+                  <td>{{item.title}}</td>
+                  <td class="ellipsis">
+                    <ng-template ngFor let-cour [ngForOf]="item.modulesData" let-i="index">
+                      {{cour.title}}<span *ngIf="i < (item.modulesData.length-1)">,</span>
+                    </ng-template>
+                  </td>
+                  <td class="text-center" >
+                    <label class="switch" *ngIf="item.status">
+                      <input type="checkbox" checked (click)="changeCourseStatus(item._id,$event)">
+                      <span class="slider round"></span>
+                    </label>
+                    <label class="switch" *ngIf="!item.status">
+                      <input type="checkbox" (click)="changeCourseStatus(item._id,$event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </td>
+                  <td class="text-center">{{item.createdAt | date:'short'}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary" (click)="editCourse(item._id)"><i class="fa fa-edit"></i></button>&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+</ion-content>

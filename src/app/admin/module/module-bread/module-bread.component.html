@@ -1,0 +1,209 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1 *ngIf="!edit">
+        <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+        {{'Create a Module' | translate}}
+      </h1>
+      <h1 *ngIf="edit">
+        <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+        {{'Edit a Module' | translate}}
+      </h1>
+  
+  
+    </section>
+  
+    <section class="content">
+      
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>{{'Module Code' | translate}}</label>
+                    <input placeholder="Module Code" type="text" class="form-control" value="M{{moduleCode}}" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group {{keywordsError}}">
+                    <label>{{'Keywords, Description, Tags' | translate}}</label>
+                    <input type="text" placeholder="Add Keywords, Description, Tags"  class="form-control" [(ngModel)]="keywords" #keywordsChild>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group {{titleError}}">
+                    <label>{{'Title' | translate}}</label>
+                    <input name="text" placeholder="Enter Module Title" type="text" class="form-control" [(ngModel)]="moduleTitle" #titleChild>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group {{rewardError}}">
+                    <label>{{'Reward Points' | translate}}</label>
+                    <input name="text" placeholder="Enter Reward Points" type="number"
+                      class="form-control" [(ngModel)]="reward" #rewardChild>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group {{descriptionError}}">
+                    <label>{{'Description' | translate}}</label>
+                    <textarea placeholder="Enter Module Description" rows="3" class="form-control" [(ngModel)]="description" #descriptionChild></textarea>
+                  </div>
+                </div>
+                
+                <div class="col-lg-12 video" style="padding: unset;">
+                  <div class="form-group {{youtubeLinkError}}">
+                    <label style="padding-left: 15px;">{{'Content Type' | translate}} ({{'Video' | translate}})</label>
+                      <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <input name="text" type="text"
+                            class="form-control" placeholder="https://www.youtube.com/embed/" disabled>
+                          </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                          <div class="input-group form-group {{documentError}}">
+                            <input name="text" placeholder="Enter Youtube Id" type="text"
+                            class="form-control" [(ngModel)]="youtubeLink">
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-primary btn-flat" (click)="addYoutubeLink()"><i class="fa fa-plus-circle"></i></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="col-lg-12 video" *ngIf="youtubes.length > 0">
+                
+                  
+                  <div *ngFor="let item of youtubes;let i =index;"><a href="https://www.youtube.com/embed/{{item.path}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View Youtube Link' | translate}}</a></div>
+                </div>
+                <div class="col-lg-12 document">
+                  <div class="form-group {{documentFileError}}"> <span style="float: right;font-size: 16px;font-weight: bold;">{{documentspdf.length}}</span>
+                    <label class="tooltip1">{{'Content Type' | translate}} ({{'Document' | translate}}) <span class="tooltiptext1">Only PDF Supported</span></label>
+                    <div class="thumbnail1 input-group form-control {{documentFileError}}" style="padding: unset !important;">
+                      <p *ngIf="!uploadDocument" style="padding: 6px 10px;margin: unset;">{{'Choose a File' | translate}}</p>
+                        <p *ngIf="uploadDocument" style="padding: 6px 10px;margin: unset;">{{uploadDocumentName}}</p>
+                     <input type="file" class="hide_file" (change)="uploadDocumentFile($event)" multiple accept=".pdf" #documentFileChild>
+                     <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 document" *ngIf="documentspdf.length > 0">
+                  <div *ngFor="let item of documentspdf;let i =index;" style="margin-bottom: 5px;"><a href="{{baseURL}}/retrieve/{{item.path}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View Document' | translate}}</a>  <i (click)="deleteDocument(i)" style="margin-left:20px;color:red;cursor:pointer" class="fa fa-trash"></i></div>
+                  
+                 </div>
+                 <!-- <div class="col-lg-12 ppt">
+                  <div class="form-group {{documentError}}">
+                    <label class="tooltip1">{{'Content Type' | translate}} ({{'Document' | translate}})  <span class="tooltiptext1">Excel, PPT, DOCX Supported</span></label>
+                          <div class="input-group form-group {{documentError}}">
+                            <input name="text" placeholder="Enter Document Link" type="text"
+                            class="form-control" [(ngModel)]="documentLink" (keyup)="getDocuments($event)">
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-primary btn-flat" (click)="addDocument()"><i class="fa fa-plus-circle"></i></button>
+                            </span>
+                          </div>
+                  </div>
+                  
+                </div>
+                <div class="col-lg-12 ppt" *ngIf="documents.length > 0">
+                
+                  <div *ngFor="let item of documents;let i =index;" style="margin-bottom: 5px;">{{item.path}}<i (click)="deleteDocuments(i)" style="margin-left:20px;color:red;cursor:pointer" class="fa fa-trash"></i></div>
+                </div> -->
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="QuestionKDT">{{'Assign Quiz' | translate}}</label>
+                  
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Search" (input)="getItems($event)">
+                      </div>
+                      
+                  </div>
+                  <div class="form-group {{quizError}}" style="border:1px solid #D2D6DE;padding: 10px; height: 178px;overflow: scroll;">
+                      <div class="checkbox" style="margin-top:unset" *ngFor="let item of qbData">
+                        <label>
+                          <input type="checkbox" [(ngModel)]="item.checked" (click)="addQuestion($event,item._id)">
+                          {{item.title}}
+                        </label>
+                      </div>
+                  </div>
+                    <div class="form-group {{thumbnailLinkError}}" >
+                      <label>{{'Upload Thumbnail' | translate}}</label>
+                      
+                      <div class="thumbnail1 input-group  form-control {{thumbnailLinkError}}" style="padding: unset !important;">
+                        <p *ngIf="!uploadThumbnail" style="padding: 6px 10px;margin: unset;">{{'Choose a thumbnail' | translate}}</p>
+                        <p *ngIf="uploadThumbnail" style="padding: 6px 10px;margin: unset;">{{uploadThumbnailName}}</p>
+                       <input type="file" class="hide_file" (change)="uploadThumbnailFile($event)" accept="image/*" #thumbnailChild>
+                       <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                      </div>
+                      
+                    </div>
+                     <div class="col-lg-12" *ngIf="thumbnailLink !== ''">
+                      <a href="{{baseURL}}/retrieve/{{thumbnailLink}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View thumbnail' | translate}}</a>
+                      
+                     </div>
+                     <div class="form-group {{moduleWatchTimeError}}">
+                      <label>{{'Module Watch Time In Minutes' | translate}}</label>
+                      <input placeholder="Enter Module Watch Time" type="number" id="title" class="form-control" [(ngModel)]="moduleWatchTime" >
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="QuestionKDT">{{'Question Bank' | translate}}</label>
+                  
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Search" (input)="qBSearch($event)">
+                      </div>
+                      
+                  </div>
+                  <div class="form-group" style="border:1px solid #D2D6DE;padding: 10px; height: 178px;overflow: scroll;">
+                      <div *ngFor="let item of questions">
+                        <p [innerHTML]="item.question"></p>
+                        <!-- <label style="font-weight: unset;" >{{item.question}}</label><br> -->
+                      </div>
+                      
+                       
+                  </div>
+                  <div class="form-group ">
+                    <label>{{'Expiry Date' | translate}}</label>
+                    <input placeholder="Enter Expiry Date" type="date" id="title" class="form-control" [(ngModel)]="expiryDate" >
+                  </div>
+                  
+                </div>
+               
+              </div>
+            </div>
+            <div class="col-lg-12" style="margin-top:10px">
+              <button type="button" (click)="createModule()" *ngIf="!edit" class="btn btn-warning">{{'Save' | translate}}</button>
+              <button type="button" (click)="editModule()" *ngIf="edit" class="btn btn-warning">{{'Update' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  
+  
+  <!-- <div class="app-main__inner fm-margin-unset fm-padding-10-40 f-gotham">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main-card mb-3 card">
+          <div class="card-body">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</ion-content>
+

@@ -1,0 +1,35 @@
+<ion-content>
+    <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            {{'Calender' | translate}}
+          </h1>
+        </section>
+      
+        <section class="content">
+            <div *ngIf="calendarOptions == undefined">{{'Loading' | translate}}...</div>
+            <div *ngIf="calendarOptions != undefined">
+                <div class="row">
+                    <div class="col-lg-offset-2 col-md-offset-2 col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <i class="fa fa-square" style="font-size: 18px;color: #7e57c2;"></i> <span style="padding-left: 10px;font-size: 18px;color: #7e57c2;">{{'Program' | translate}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <i class="fa fa-square" style="font-size: 18px;color: #ef5350;"></i> <span style="padding-left: 10px;font-size: 18px;color: #ef5350;">{{'Course' | translate}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <i class="fa fa-square" style="font-size: 18px;color: #ec407a"></i> <span style="padding-left: 10px;font-size: 18px;color: #ec407a">{{'Module' | translate}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <i class="fa fa-square" style="font-size: 18px;color: #ab47bc"></i> <span style="padding-left: 10px;font-size: 18px;color: #ab47bc">{{'Quiz' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <full-calendar [options]="calendarOptions"></full-calendar>
+            </div>
+        </section>
+      </div>
+      
+    </ion-content>

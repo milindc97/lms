@@ -1,0 +1,147 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'Allocation Reports' | translate}}
+      </h1>
+      <!-- <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="export('Employee.csv')"><i
+            class="fa fa-download"></i></button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div> -->
+    </section>
+    <section class="content">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#program" data-toggle="tab">{{'Program Allocation Reports' | translate}} &nbsp;<button type="button" class="btn btn-primary" (click)="programexportAsXLSX()"><i
+                class="fa fa-download"></i></button> </a></li>
+              <li><a href="#course" data-toggle="tab">{{'Course Allocation Reports' | translate}} &nbsp;<button type="button" class="btn btn-primary" (click)="courseexportAsXLSX()"><i
+                class="fa fa-download"></i></button>  </a></li>
+              <li><a href="#module" data-toggle="tab">{{'Module Allocation Reports' | translate}} &nbsp;<button type="button" class="btn btn-primary" (click)="moduleexportAsXLSX()"><i
+                class="fa fa-download"></i></button> </a></li>
+              <li><a href="#quiz" data-toggle="tab">{{'Quiz Allocation Reports' | translate}} &nbsp;<button type="button" class="btn btn-primary" (click)="quizexportAsXLSX()"><i
+                class="fa fa-download"></i></button> </a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="program">
+                <div class="box box-solid">
+                  <div class="box-body">
+                    <div class="table-responsive" >
+                      <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table1>
+                        <thead>
+                          <tr>
+                            <th style="width: 6%;">{{'SR' | translate}}</th>
+                            <th>{{'Program Name' | translate}}</th>
+                            <th>{{'User Name' | translate}}</th>
+                            <th>{{'Date' | translate}}</th>
+                            <th  style="width: 6%;">{{'Action' | translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of programAllocation;let i=index">
+                                <td style="width: 6%;">{{i+1}}</td>
+                                <td>{{item.programDetails[0].title}}</td>
+                                <td>{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</td>
+                                <td>{{item.createdAt | date:'short'}}</td>
+                                <td style="width: 6%;"><button type="button" class="btn btn-danger"><i
+                                    class="fa fa-trash" (click)="delete(item._id)"></i></button></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <div class="tab-pane" id="course">
+                <div class="box box-solid">
+                  <div class="box-body">
+                    <div class="table-responsive" >
+                      <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table2>
+                        <thead>
+                            <tr>
+                                <th style="width: 6%;">{{'SR' | translate}}</th>
+                                <th>{{'Course Name' | translate}}</th>
+                                <th>{{'User Name' | translate}}</th>
+                                <th>{{'Date' | translate}}</th>
+                                <th style="width: 6%;">{{'Action' | translate}}</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of courseAllocation;let i=index">
+                                <td style="width: 6%;">{{i+1}}</td>
+                                <td>{{item.courseDetails[0].title}}</td>
+                                <td>{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</td>
+                                <td>{{item.createdAt | date:'short'}}</td>
+                                <td  style="width: 6%;"><button type="button" class="btn btn-danger"><i
+                                    class="fa fa-trash" (click)="delete(item._id)"></i></button></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div class="tab-pane" id="module">
+                <div class="box box-solid">
+                  <div class="box-body">
+                    <div class="table-responsive" >
+                      <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table3>
+                        <thead>
+                            <tr>
+                                <th style="width: 6%;">{{'SR' | translate}}</th>
+                                <th>{{'Module Name' | translate}}</th>
+                                <th>{{'User Name' | translate}}</th>
+                                <th>{{'Date' | translate}}</th>
+                                <th style="width: 6%;">{{'Action' | translate}}</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of moduleAllocation;let i=index">
+                                <td style="width: 6%;">{{i+1}}</td>
+                                <td>{{item.moduleDetails[0].title}}</td>
+                                <td>{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</td>
+                                <td>{{item.createdAt | date:'short'}}</td>
+                                <td  style="width: 6%;"><button type="button" class="btn btn-danger"><i
+                                    class="fa fa-trash" (click)="delete(item._id)"></i></button></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div class="tab-pane" id="quiz">
+                <div class="box box-solid">
+                  <div class="box-body">
+                    <div class="table-responsive" >
+                      <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table4>
+                        <thead>
+                            <tr>
+                                <th style="width: 6%;">{{'SR' | translate}}</th>
+                                <th>{{'Quiz Name' | translate}}</th>
+                                <th>{{'User Name' | translate}}</th>
+                                <th>{{'Date' | translate}}</th>
+                                <th style="width: 6%;">{{'Action' | translate}}</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of quizAllocation;let i=index">
+                                <td style="width: 6%;">{{i+1}}</td>
+                                <td>{{item.quizDetails[0].title}}</td>
+                                <td>{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</td>
+                                <td>{{item.createdAt | date:'short'}}</td>
+                                <td  style="width: 6%;"><button type="button" class="btn btn-danger"><i
+                                    class="fa fa-trash" (click)="delete(item._id)"></i></button></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>   
+              </div>
+            </div>
+          </div> 
+    </section>
+  </div>
+  
+</ion-content>

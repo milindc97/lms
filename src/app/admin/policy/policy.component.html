@@ -1,0 +1,118 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'Policy' | translate}}
+      </h1>
+      <div class="create-box">
+        <!-- <button type="button" class="btn btn-primary" #refresh (click)="getData()"><i class="fa fa-refresh"></i></button> -->
+      </div>
+    </section>
+  
+    <section class="content">
+  
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <button class="btn btn-warning" style="float: right;" *ngIf="edit" (click)="edit=false;clear()">{{'Close' | translate}}</button>
+          <!-- <button class="btn btn-warning" style="float: right;" *ngIf="!edit" (click)="edit=true">Add Policy</button> -->
+          <h4 class="text-warning">{{'Grade' | translate}}</h4>
+        </div>
+        <div class="box-body">
+          <div class="row" *ngIf="edit">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group {{iconError}}">
+                    <label>{{'Icon' | translate}}</label>
+                    <div class="thumbnail1 input-group form-control {{iconError}}" style="padding: unset !important;">
+                      <p *ngIf="!uploadImage" style="padding: 6px 10px;margin: unset;">{{'Choose a File' | translate}}</p>
+                      <p *ngIf="uploadImage" style="padding: 6px 10px;margin: unset;">{{uploadImageName}}</p>
+                      <input type="file" class="hide_file" (change)="uploadIcon($event)" accept="image/*"
+                        #documentFileChild>
+                      <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                    </div>
+                  </div>
+                  <a *ngIf="icon !== ''" href="{{baseURL}}/retrieve/{{icon}}/{{authService.currentUserValue.accessToken}}"
+                    target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View Document' | translate}}</a>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group {{percentageError}}">
+                    <label>{{'Percentage' | translate}}</label>
+                    <select class="form-control" [(ngModel)]="percentage" disabled>
+                      <option value="" disabled>{{'Select Percentage' | translate}}</option>
+                      <option value="Greater Than 90">Greater Than 90</option>
+                      <option value="Less Than or Equal To 90 & Greater Than 70"> Less Than or Equal To 90 & Greater Than
+                        70</option>
+                      <option value="Less Than or Equal To 70 & Greater Than 50">Less Than or Equal To 70 & Greater Than
+                        50</option>
+                      <option value="Less Than or Equal To 50 & Greater Than 30">Less Than or Equal To 50 & Greater Than
+                        30</option>
+                      <option value="Less Than 30">Less Than 30</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group {{nameError}}">
+                    <label>{{'Grade Name' | translate}}</label>
+                    <input type="text" placeholder="Grade Name" [(ngModel)]="name" class="form-control">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <!-- <button type="button" style="float: right;" *ngIf="!update" class="btn btn-warning"
+                    (click)="createPolicy()">Save</button> -->
+                  <button type="button" style="float: right;" *ngIf="update" class="btn btn-warning"
+                    (click)="editPolicy()">{{'Update' | translate}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12" style="margin-top:10px">
+              <!-- <button type="button" (click)="createModule()" *ngIf="!edit" class="btn btn-warning">Save</button>
+                    <button type="button" (click)="editModule()" *ngIf="edit" class="btn btn-warning">Update</button> -->
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Icon' | translate}}</th>
+                  <th>{{'Percentage' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'Action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of policies; let i=index">
+                  <td>{{i+1}}</td>
+                  <td><img src="{{baseURL}}/retrieve/{{item.icon}}/{{authService.currentUserValue.accessToken}}"
+                      width="30"></td>
+                  <td>{{item.percentage}}</td>
+                  <td>{{item.name}}</td>
+                  <td><button type="button" (click)="editP(item._id)" class="btn btn-primary"><i
+                        class="fa fa-edit"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="box box-solid">
+          <div class="box-header with-border">
+              <h4 class="text-warning">{{'Top Employee Message' | translate}}</h4>
+            </div>
+            <div class="box-body">
+              <div class="form-group {{messageError}}">
+                  <label>{{'Message' | translate}}</label>
+                  <input type="text" placeholder="Message" class="form-control" [(ngModel)]="message">
+                </div>
+                <button type="button" style="float: right;" class="btn btn-warning" (click)="saveMessageConfig()"
+                    >{{'Save' | translate}}</button>
+              </div>
+      </div>
+  
+  
+    </section>
+  </div>
+  
+
+</ion-content>

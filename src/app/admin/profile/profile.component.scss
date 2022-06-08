@@ -1,0 +1,23 @@
+
+.flex-item-1{
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.flex-item-2{
+    flex: 2.5;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.box{
+    margin-bottom: unset;
+    .box-warning{
+        height: 100%;
+}
+}
+.nav-tabs-custom{
+    height: 100%;
+    margin-bottom: unset;
+}

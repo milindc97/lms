@@ -1,0 +1,47 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'API Log' | translate}}
+      </h1>
+      <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i
+            class="fa fa-download"></i></button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div>
+    </section>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <p class="text-center" *ngIf="loading">Loading...</p>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Emp Code' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'URL' | translate}}</th>
+                  <th class="text-center">{{'Date Time' | translate}}</th>
+                  <th class="text-center">{{'IP Address' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of employeesData;let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.userData[0].employeeCode}}</td>
+                  <td>{{item.userData[0].salutation}} {{item.userData[0].firstName}} {{item.userData[0].lastName}}</td>
+                  <td>{{item.url}}</td>
+                  <td class="text-center">{{item.createdAt | date:'short'}}</td>
+                  <td class="text-center">{{item.ip}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+</ion-content>

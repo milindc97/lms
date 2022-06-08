@@ -1,0 +1,100 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="row"  style="margin-bottom: 20px;">
+      <div class="col-md-5 col-xs-12 col-sm-12">
+        <h1 class="text-warning" style="font-weight: 600;">
+          {{'Program Overview' | translate}}
+        </h1>
+      </div>
+      <div class="col-md-4 col-xs-12 col-sm-12">
+        <div class="grid-container">
+          <div class="grid-item text-center"> <h4 style="color: #346B92; font-weight: 600;">{{'Programs' | translate}}</h4>
+            <h1 class="text-primary" style="font-weight: bolder; margin-top: unset;">{{this.programData.length}}</h1></div>
+          <div class="grid-item text-center"><h4 style="color: #3F4247; font-weight: 600;">{{'Courses' | translate}}</h4>
+            <h1 style="font-weight: bolder; margin-top: unset;color:#3F4247">{{coursesLength}}</h1></div>
+          <div class="grid-item"><h4 style="color: #1A79CA;font-weight: 600;">{{'Modules' | translate}}</h4>
+            <h1 style="font-weight: bolder; margin-top: unset;color:#1A79CA">{{modulesLength}}</h1></div>  
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-12 col-sm-12">
+        <div class="grid-container1" style="background-color: #F7F5E6;">
+          <div class="grid-item text-center"> <h4 style="color: #D08C45; font-weight: 600;">{{'Quiz' | translate}}</h4>
+            <h1 style="font-weight: bolder; margin-top: unset;color: #6B1904;">{{quizLength}}</h1></div>
+          <div class="grid-item text-center"> <h4 style="color: #3F4247; font-weight: 600;">{{'Completed' | translate}}</h4>
+            <h1 style="font-weight: bolder; margin-top: unset;color:#3F4247">{{completedQuizLength}}</h1></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+   
+    <div class="box box-solid">
+      <div class="box-header">
+        <div class="row" >
+          <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <input type="text" class="form-control search" [formControl]="searchControl" placeholder="Search">
+          </div>  
+        </div>
+        
+      </div>
+      <div class="box-body" *ngIf="programData.length > 0">
+        
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-xs-12 col-sm-12" *ngFor="let item of programData;let i = index"  style="cursor: pointer;margin-bottom: 10px;">
+            <div class="box1" *ngIf="item.expiredOn != ''" [routerLink]="['/emp/program/course',item.programData._id]">
+              <img src="{{baseURL}}/retrieve/{{item.programData.thumbnail}}/{{authService.currentUserValue.accessToken}}"  onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" class="image" />
+              <div class="text">
+                <h4 class="title">{{item.programData.title}}</h4>
+                <h5 style=" overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;">{{item.programData.description}}</h5>
+                <ion-progress-bar  style="--buffer-background:#edc2b4;--progress-background:#C43606;" [value]="(item.score)/100"></ion-progress-bar>
+                <h5 class="progress-text">{{item.score}}% Complete <span style="float: right;font-size: 12px;"><i class="fa fa-clock-o" style="margin-right: 5px;"></i>{{item.hours}}:{{item.minutes}} hours</span> </h5>
+                <h5 class="progress-text" style="font-size: 10px;">Valid Upto {{item.expiredOn | date:'dd MMM yyyy'}} </h5>
+              </div>
+            </div>
+            <div class="box1" *ngIf="item.expiredOn == ''" (click)="expiredToast()">
+              <img src="{{baseURL}}/retrieve/{{item.programData.thumbnail}}/{{authService.currentUserValue.accessToken}}"  onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" class="image" />
+              <div class="text">
+                <h4 class="title">{{item.programData.title}}</h4>
+                <h5 style=" overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;">{{item.programData.description}}</h5>
+                <ion-progress-bar  style="--buffer-background:#edc2b4;--progress-background:#C43606;" [value]="(item.score)/100"></ion-progress-bar>
+                <h5 class="progress-text">{{item.score}}% Complete</h5>
+                <h5 class="progress-text" style="font-size: 10px;">Expired </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-body" *ngIf="programData.length == 0 && !loading">
+        <div class="row">
+          <h3>No Data Found</h3>
+        </div>
+      </div>
+      <div class="box-body" *ngIf="loading">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-xs-12 col-sm-12">
+            <div class="box1">
+              <ion-skeleton-text animated class="image" style="margin-top:unset !important;margin-bottom: 10px;"></ion-skeleton-text>
+              <div class="text">
+                <ion-skeleton-text class="title" animated style="width: 100%; margin-bottom: 10px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 80%; margin-bottom: 10px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%; margin-bottom: 10px;"></ion-skeleton-text>
+                <ion-skeleton-text class="prograss-text" animated style="width: 50%; margin-bottom: 10px;"></ion-skeleton-text>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+</div>
+</ion-content>

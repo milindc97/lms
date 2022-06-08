@@ -1,0 +1,58 @@
+<ion-content>
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      <button style="float: right; " type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i
+        class="fa fa-download"></i></button>&nbsp;
+      <div class="form-group " style="float: right; margin-right: 10px;">
+          <select class="form-control" style="background: #ffbc2c !important;
+          color: white; border-color: unset;" (change)="filterByCourse($event)">
+            <option value="All" selected>{{'All' | translate}}</option>
+              <option *ngFor="let item of courseData" value="{{item._id}}">{{item.title}}</option>
+          </select>
+        </div>
+      {{'Course Wise Reports' | translate}}
+    </h1>
+    <!-- <div class="create-box">
+      <button type="button" class="btn btn-primary" (click)="export('Employee.csv')"><i
+          class="fa fa-download"></i></button> &nbsp;
+      <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+    </div> -->
+  </section>
+  <section class="content">
+    <div class="box box-solid">
+      <div class="box-body">
+        <!-- <p class="text-center" *ngIf="loading">Loading...</p> -->
+        <div class="table-responsive">
+          <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+            <thead>
+              <tr>
+                <th>{{'SR' | translate}}</th>
+                <th>{{'Employee Code' | translate}}</th>
+                <th>{{'Employee Name' | translate}}</th>
+                <th>{{'Course Name' | translate}}</th>
+                <th>{{'Designation' | translate}}</th>
+                <th>{{'Department' | translate}}</th>
+                <th>{{'Branch' | translate}}</th>
+                <th>{{'Date' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of courseAllocation;let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.userDetails[0].employeeCode}}</td>
+                <td>{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</td>
+                <td>{{item.courseDetails[0].title}}</td>
+                <td>{{item.userDetails[0].designation}}</td>
+                <td>{{item.userDetails[0].department}}</td>
+                <td>{{item.userDetails[0].branch}}</td>
+                <td>{{item.createdAt | date:'short'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</ion-content>

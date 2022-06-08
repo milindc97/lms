@@ -1,0 +1,152 @@
+<ion-content>
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{'Support' | translate}}
+    </h1>
+    <div class="create-box">
+      <button type="button" class="btn btn-primary" #refresh (click)="getData()"><i class="fa fa-refresh"></i></button>
+    </div>
+  </section>
+
+  <section class="content">
+
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+            <thead>
+              <tr>
+                <th>{{'SR' | translate}}</th>
+                <th>{{'Subject' | translate}}</th>
+                <th>{{'Message' | translate}}</th>
+                <th>{{'Employee Name' | translate}}</th>
+                <th>{{'Remark' | translate}}</th>
+                <th>{{'Action' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let item of supportRequests;let i=index">
+               <td>{{i+1}}</td>
+               <td>{{item.subject}}</td>
+               <td><p [innerHTML]="item.message"></p></td>
+               <td>{{item.usersData[0]?.salutation}} {{item.usersData[0]?.firstName}} {{item.usersData[0]?.lastName}}</td>
+               <td><p [innerHTML]="item.remark"></p></td>
+               <td><button *ngIf="item.status == 0" class="btn btn-success" style="margin-right: 10px;" data-toggle="modal" data-target="#modal-success" 
+                (click)="showSupport(item)"><i class="fa fa-check"></i></button>
+                <button *ngIf="item.status == 0" class="btn btn-info" data-toggle="modal" data-target="#modal-default" style="margin-right: 10px;"
+                (click)="showSupport(item)"><i class="fa fa-code-fork"></i></button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-moreInfo" style="margin-right: 10px;"
+                (click)="showSupport(item)"><i class="fa fa-eye"></i></button>
+              </td>
+             </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+       
+  </section>
+</div>
+
+<div class="modal fade" id="modal-success">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label>{{'Remark' | translate}}</label><br>
+          <ngx-editor-menu [editor]="remarkEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                <ngx-editor  height="100px"  [editor]="remarkEditor" [placeholder]="'Enter Remark'" [(ngModel)]="remark" [disabled]="false"></ngx-editor>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" (click)="closeModal()" >{{'Close' | translate}}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" (click)="updateStatus(supportId)">{{'Update' | translate}}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label>{{'Subject' | translate}}</label>
+          <h4 style="margin-top: unset; text-transform: capitalize;">{{subject}}</h4>
+        </div>
+        <div class="form-group">
+          <label>{{'Message' | translate}}</label>
+          <h4 style="margin-top: unset;text-transform: capitalize;"><p [innerHTML]="message"></p></h4>
+        </div>
+        <div class="form-group">
+          <label>{{'Delegate To' | translate}}</label><br>
+          <select class="select2" [(ngModel)]="employee" style="width: 100%;" id="employee">
+            <option value="" disabled>Select Employee</option>
+            <option *ngFor="let item of emp;let i=index" value="{{i}}">{{item.salutation}} {{item.firstName}} {{item.lastName}} - {{item.department}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" (click)="closeModal()" >{{'Close' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="send()">{{'Send' | translate}}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-moreInfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label>{{'Subject' | translate}}</label>
+          <h4 style="margin-top: unset; text-transform: capitalize;">{{subject}}</h4>
+        </div>
+        <div class="form-group">
+          <label>{{'Message' | translate}}</label>
+          <h4 style="margin-top: unset;text-transform: capitalize;"><p [innerHTML]="message"></p></h4>
+        </div>
+        <div class="form-group">
+          <label>{{'Supportive Document' | translate}}</label><br>
+          <a href="{{baseURL}}/retrieve/{{file}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;View File</a>
+        </div>
+        <div class="form-group">
+          <label>{{'Updates' | translate}}</label>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" >
+              <tbody style="height: 200px;
+              overflow: scroll;
+              overflow-x: hidden;">
+               <tr *ngFor="let item of supportTransaction;let i=index">
+                 <td><p [innerHTML]="item.message"></p></td>
+                 <td>{{item.createdAt | date:'short'}}</td>
+                 <td *ngIf="item.status == 1">Resolved</td>
+               </tr>
+               <tr *ngIf="supportTransaction.length == 0">
+                <td>No Data Found</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" (click)="closeModal()" >{{'Close' | translate}}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+</ion-content>

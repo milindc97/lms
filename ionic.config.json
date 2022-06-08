@@ -1,0 +1,7 @@
+{
+  "name": "fusion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

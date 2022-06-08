@@ -1,0 +1,215 @@
+<ion-content>
+    <div class="content-wrapper" style="background-color: white;">
+        <section class="content-header">
+            <h1>
+                <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+              {{'Employee Performance' | translate}}
+            </h1>
+          </section>
+        <section class="content">
+            <div class="row ">
+                <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+                    <!-- <div class="row" style="margin:unset;margin-bottom: 10px;">
+                        <div class="col-md-2 col-xs-2 col-sm-2" style="padding: unset;">
+                            <img src="assets/img/dashboard.png" style="width: 50px;">
+                        </div>
+                        <div class="col-md-10 col-xs-10 col-sm-10" style="padding:unset;padding-top: 3px;">
+                            <span style="color: #326BC2;font-size: 25px;">Dashboard</span>
+                        </div>
+                    </div> -->
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="text-center person" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                            <img src="assets/img/user.png" class="image">
+                            <h4 class="image-name">{{topEmployee.salutation}} {{topEmployee.firstName}}
+                                {{topEmployee.lastName}}</h4>
+                            <h5>{{topEmployee.department}}</h5>
+                            <h5><b>{{'Employee Code' | translate}}: </b>{{topEmployee.employeeCode}}</h5>
+                            <!-- <h5 class="text-warning" style="font-weight: bold;text-transform: uppercase;"><img
+                                    src="assets/img/trophy.png" width="20">&nbsp;Top #1 Employee&nbsp;<img
+                                    src="assets/img/trophy.png" width="20"></h5> -->
+                            <!-- <button class="btn btn-primary" style="white-space: pre-line;">3 Programs away from your target</button> -->
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xs-12 col-lg-6 col-md-6" style="padding:unset;margin-bottom: 10px;">
+                            <div class="card"
+                                style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;height: 240px;padding:40px">
+                                <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue"
+                                    [centralLabel]="centralLabel" [options]="options" [name]="name"
+                                    [bottomLabel]="bottomLabel"></rg-gauge-chart>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 col-lg-6 col-md-6" style="padding:unset">
+                            <div class="card"
+                                style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;height: 240px;padding:40px">
+                                <h5 class="text-center" style="margin: unset;">{{'Quiz and Program' | translate}}</h5>
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                    [chartType]="barChartType" height="100">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+                    <div class="badges" style="height: 235px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                        <!-- <h5 style="font-weight: bold;float: right;">View all</h5> -->
+                        <h5 style="font-weight: bold;">{{'Your Badges' | translate}}</h5>
+                        <hr class="horizontal">
+                        <div *ngFor="let item of allQuizScore;let i=index" >
+                            <div *ngIf="i < 5">
+                            <h5 style="font-weight: bold;float: right;margin: unset;">{{item.score}}%</h5>
+                            <h5 style="font-weight: bold;">{{item.quizData[0].title}}</h5>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+                    <div class="card" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 15px;">
+                        <div class="nav-tabs-custom"  style="padding: 13px;border-radius: 15px;">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#pending" data-toggle="tab">{{'Pending Program' | translate}}</a></li>
+                                <li><a href="#completed" data-toggle="tab">{{'Completed Program' | translate}}</a></li>
+                                <!-- <li style="float: right;font-weight: bold;"><a
+                                        style="color: #3C76B5 !important;padding-left: unset; cursor: pointer;"
+                                        >All Programs</a></li> -->
+    
+                            </ul>
+                            <div class="tab-content" style="padding: unset !important;">
+                                <div class="active tab-pane" id="pending">
+                                    <div scrollX="true" class="wide-as-needed" scrollbar="false">
+                                        <div class="category-item" *ngFor="let pending of pendingProgram">
+                                            <div class="card"
+                                                style="width:300px; padding: 20px;border:1px solid lightgray;border-radius: 10px;">
+                                                <!-- <i class="fa fa-ellipsis-v" style="float: right;"></i> -->
+                                                <h4 class="text-primary" style="font-weight: bold;margin-bottom: unset;">
+                                                    {{pending.programData.title}}</h4>
+                                                <h5 class="text-primary"
+                                                    style="font-weight: bold;margin-top: unset;opacity: 0.8;">
+                                                    {{pending.programData.description}}
+                                                </h5>
+                                                <ngb-progressbar type="success" style="margin-bottom: 10px;" [value]="pending.score"></ngb-progressbar>
+                                                <!-- <ion-progress-bar value="{{pending.score}}/100"></ion-progress-bar> -->
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3"
+                                                        style="padding-left: unset;">
+                                                        <div class="number text-center" style="background-color: #4BB543;">
+                                                            {{pending.modulesWatchedCount}}</div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3"
+                                                        style="padding-left: unset;">
+                                                        <div class="number text-center" style="background-color: #ffbc2c;">
+                                                            {{pending.modulesCount}}
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6 text-right"
+                                                        style="padding-right: unset;">
+                                                        <button class="btn btn-primary"
+                                                            [routerLink]="['/program',pending.programData._id]">Start</button>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="category-item text-center" *ngIf="pendingProgram.length == 0">
+                                            <img src="assets/img/nodatafound.jpg" width="145px">
+                                        </div>
+    
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+    
+                                <div class="tab-pane" id="completed">
+                                    <div scrollX="true" class="wide-as-needed" scrollbar="false">
+                                        <div class="category-item" *ngFor="let comp of completedProgram">
+                                            <div class="card"
+                                                style="width:300px; padding: 20px;border:1px solid lightgray;border-radius: 10px;">
+                                                <!-- <i class="fa fa-ellipsis-v" style="float: right;"></i> -->
+                                                <h4 class="text-primary"
+                                                    style="font-weight: bold;margin-bottom: unset;">
+                                                    {{comp.programData.title}}</h4>
+                                                <h5 class="text-primary"
+                                                    style="font-weight: bold;margin-top: unset;opacity: 0.8;">
+                                                    {{comp.programData.description}}
+                                                </h5>
+                                                <ngb-progressbar style="margin-bottom: 10px;" type="success" [value]="comp.score"></ngb-progressbar>
+                                                <!-- <ion-progress-bar value="{{comp.score}}/100"></ion-progress-bar> -->
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3"
+                                                        style="padding-left: unset;">
+                                                        <div class="number text-center"
+                                                            style="background-color: #4BB543;">
+                                                            {{comp.modulesWatchedCount}}</div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3"
+                                                        style="padding-left: unset;">
+                                                        <div class="number text-center"
+                                                            style="background-color: #ffbc2c;">{{comp.modulesCount}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="category-item text-center" *ngIf="completedProgram.length == 0">
+                                            <img src="assets/img/nodatafound.jpg" width="145px">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row " *ngIf="allocatedProgram.length > 0">
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                    <h4 style="font-weight: bold;">{{'Today's Allocated Programs' | translate}}</h4>
+                    <div scrollX="true" class="wide-as-needed" scrollbar="false">
+                        <div class="category-item " *ngFor="let item of allocatedProgram" style="cursor: pointer;"
+                            >
+                            <div style="border:1px solid lightgray;border-radius: 10px;">
+                                <img src="{{baseURL}}/retrieve/{{item.programData[0].thumbnail}}/{{authS.currentUserValue.accessToken}}"
+                                    style="width: 180px; height:130px;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                                <h4 style="font-weight: bold;margin-bottom: 5px;padding-left: 10px;">
+                                    {{item.programData[0].title}}</h4>
+                                <h5 style="font-weight: bold;margin-top: unset;padding-left: 10px;">
+                                    {{item.programData[0].description}}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                    <div class="card"
+                        style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;padding: 10px;">
+                        <h4 style="font-weight: bold;">{{'Weekly Program' | translate}}</h4>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-2 col-lg-2 col-md-2">
+                                <img src="assets/img/medal.png" width="150px">
+                            </div>
+                            <div class="col-sm-10 col-xs-10 col-lg-10 col-md-10">
+                                <h5 style="font-weight: bold;">{{'Pro Badge' | translate}}</h5>
+                                <p>{{'Get a Pro Badge when you complete your weekly targets!' | translate}}</p>
+                                <div id="steps">
+    
+                                    <div class="step active" *ngFor="let item of weeks;let i=index"
+                                        attr.value="Week {{item.week+1}}">
+                                        {{item.count}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    </div>
+</ion-content>

@@ -1,0 +1,41 @@
+.thumbnail1{
+    padding:6px 10px !important;
+    position:relative;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid #D2D6DE;padding: 10px;
+}
+.hide_file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+    
+}
+.display{
+    display: block !important;
+}
+.display-no{
+    display: none !important;
+}.tooltiptext1 {
+    visibility: hidden;
+    width: 170px;
+    background-color: #D2D6DE;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip1:hover .tooltiptext1 {
+    visibility: visible;
+  }

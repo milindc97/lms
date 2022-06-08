@@ -1,0 +1,100 @@
+.row1 {
+  margin-bottom: 20px;
+  padding:5px;
+  background-color: white;
+}
+.container1 {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+}
+
+/* Top right text */
+.top-right {
+  position: absolute;
+  top: 17px;
+  right: 30px;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+display: none;
+}
+.border-grid{
+border-radius: 10px;
+}
+.back{
+background-color: #EDE8E3 !important;
+}
+
+.active-tab{
+background-color: #ffbc2c;
+color:white;
+border-radius: 5px;
+padding: 8px;
+}
+.tooltiptext1 {
+
+visibility: hidden;
+  width: 200px;
+  background-color: #D2D6DE;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  left: 65%;
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 768px) {
+.tooltiptext1 {
+
+  visibility: hidden;
+    width: 200px;
+    background-color: #D2D6DE;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    left: 37%;
+
+}
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+.tooltiptext1 {
+
+  visibility: hidden;
+    width: 200px;
+    background-color: #D2D6DE;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    left: 65%;
+
+}
+}
+.tooltip1:hover .tooltiptext1 {
+visibility: visible;
+}

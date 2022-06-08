@@ -1,0 +1,11 @@
+
+  <ion-app>
+    <div class="wrapper">
+      <app-app-header id="header" *ngIf="isLogin && !isActiveWall"></app-app-header>
+      <app-app-menu id="menu" *ngIf="isLogin && !isActiveWall"></app-app-menu>
+      <ion-router-outlet></ion-router-outlet>
+      <app-app-footer id="footer" *ngIf="isLogin && !isActiveWall"></app-app-footer>
+      <button id="help" *ngIf="isLogin && !isActiveWall && isEmp" class="btn btn-primary float hidden-xs hidden-sm" style="border-color: unset !important;" [routerLink]="['/emp/help']"><i class="fa fa-question" style="font-size: x-large;"></i></button>
+      <button id="help" *ngIf="isLogin && !isActiveWall && isAdmin" class="btn btn-primary float hidden-xs hidden-sm" style="border-color: unset !important;" [routerLink]="['/admin/help']"><i class="fa fa-question" style="font-size: x-large;"></i></button>
+    </div>
+    </ion-app>

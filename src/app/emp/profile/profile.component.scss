@@ -1,0 +1,104 @@
+// .flex-box{
+//     display: flex;
+// }
+
+// .flex-item-1{
+//     flex: 1;
+//     padding-left: 15px;
+//     padding-right: 15px;
+// }
+
+// .flex-item-2{
+//     flex: 2.5;
+//     padding-left: 15px;
+//     padding-right: 15px;
+// }
+
+.box{
+    margin-bottom: unset;
+    .box-warning{
+        height: 100%;
+}
+}
+.nav-tabs-custom{
+    height: 100%;
+    margin-bottom: unset;
+}
+
+@media (min-width: 300px) { 
+    .flex-box{
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .flex-item-1{
+        flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .flex-item-2{
+        flex: 2.5;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {  
+    .flex-box{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.flex-item-1{
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.flex-item-2{
+    flex: 2.5;
+    padding-left: 15px;
+    padding-right: 15px;
+} }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+    .flex-box{
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    .flex-item-1{
+        flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .flex-item-2{
+        flex: 2.5;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+    .flex-box{
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    .flex-item-1{
+        flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .flex-item-2{
+        flex: 2.5;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+ }

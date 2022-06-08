@@ -1,0 +1,343 @@
+
+<ion-content>
+  <div class="wrapper">
+    <header class="main-header">
+    
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" style="background-color: #F4F4F4;padding: 5px;margin-left: unset;">
+          <!-- Sidebar toggle button-->
+          <!-- <a href="#" class="sidebar-toggle text-dark " data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a> -->
+          <div class="small-box hidden-xs" style="float: left;margin: 5px 5px; width: 300px;box-shadow:unset;">
+            <img src="assets/img/question.png" style="width: 15%;margin-left: 10px;">
+            <span class="social">Social Network</span>
+          </div>
+          
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li class="dropdown notifications-menu">
+                <a href="" [routerLink]="['/dashboard']" (click)="change()" class="dropdown-toggle" style="padding-left: unset;padding-right: 10px;">
+                  <img src="assets/img/dashboard1.png"  style="width: 55%;float: right;">
+                </a>
+              </li>
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o text-dark"></i>
+                  <span class="label label-danger">0</span>
+                </a>
+                <ul class="dropdown-menu">
+                  
+                  <li class="user-footer">
+    
+                    <ul class="menu">
+                      <li *ngFor="let item of data"><a>
+                        <div class="row">
+                          <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
+                            <img src="{{baseURL}}/retrieve/{{item.image}}/{{authS.currentUserValue.accessToken}}"  onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" class="image" />
+                          </div>
+                          <div class="col-lg-9 col-sm-9 col-xs-9 col-md-9">
+                            <a style="color: black;white-space: normal;"><b>{{item.title}}</b><br> {{item.message}}</a>
+                          </div>
+                        </div>
+                      </a>
+                      </li>
+                      <li *ngIf="data.length == 0"><a>No Notifications</a></li>
+                      <li *ngIf="data.length > 0" class="text-center" style="cursor: pointer;"><a class="text-warning" (click)="clearNotification()">{{'CLEAR' | translate}}</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="hidden-xs text-dark">{{authS.currentUserValue.salutation}} {{authS.currentUserValue.firstName}} {{authS.currentUserValue.lastName}}</span>
+                  <img src="assets/img/driving-training.png" class="user-image" alt="User Image">
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="user-footer" style="height: auto;">
+                    <div class="pull-left">
+                      <a routerLink="/emp/profile" (click)="change()" class="btn btn-default btn-flat">{{'Profile' | translate}}</a>
+                    </div>
+                    <div class="pull-right">
+                      <a (click)="authS.logout()" class="btn btn-danger btn-flat">{{'Log out' | translate}}</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        
+      </header>
+      <!-- <aside class="main-sidebar" style="background-color: #0E3570 !important;" >
+        <section class="sidebar">
+          <ul class="sidebar-menu" data-widget="tree">
+            <li class="hidden-xl hidden-lg hidden-md" style="padding-top:50px;"></li>
+            <li class="">
+              <img src="assets/img/short-flogo.png" id="smallLogo" width="100%">
+              <img src="assets/img/flogo.png" id="largeLogo" width="90%" style="padding: 10px;">
+            </li>
+            <li class="treeview">
+              <a href="#" class="pull-title text-lg">
+                <span>{{'Student Master' | translate}}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-down pull-right"></i>
+                </span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#" class="pull-title text-lg">
+                <span>{{'Syllabus / Course Master' | translate}}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-down pull-right"></i>
+                </span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#" class="pull-title text-lg">
+                <span>{{'Lesson Configuration' | translate}}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-down pull-right"></i>
+                </span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#" class="pull-title text-lg">
+                <span>{{'Configuration Master' | translate}}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-down pull-right"></i>
+                </span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#" class="pull-title text-lg">
+                <span>{{'Social' | translate}}</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </aside> -->
+      <div class="content-wrapper" style="background-color: #F4F4F4 !important; margin-top: unset !important;padding-top: 20px;margin-left: unset;">
+        <div class="flex-box">
+          <div class="flex-item-1">
+            <div class="card" style="box-shadow: 0 1px 1px rgb(0 0 0 / 10%);padding: 10px;background-color: white;height: 100%;">
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;">
+                  <img src="assets/img/avatar5.png" style="width: 100%; border-radius: 5px;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <!-- <i class="fa fa-ellipsis-h" style="float: right;"></i> -->
+                  <h4 style="margin-top: unset;margin-bottom: unset;font-weight: 600;">{{authS.currentUserValue.salutation}} {{authS.currentUserValue.firstName}} {{authS.currentUserValue.lastName}}</h4>
+                  <p>{{department}}</p>
+                </div>
+              </div>
+                <button class="feed btn btn-flat" style="width: 100%; background-color: #f4f4f4;">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;padding-left:unset;">
+                      <i class="fa fa-newspaper-o" style="font-size: 17px; margin-top: 5px;"></i>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"  style="text-align: left;">
+                     <span style="font-size: 17px;"> News Feed</span>
+                    </div>
+                  </div>
+                </button>
+                <!-- <button class="feed btn btn-flat" style="width: 100%; background-color: white;">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;padding-left:unset;">
+                      <i class="fa fa-envelope" style="font-size: 17px; margin-top: 5px;"></i>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"  style="text-align: left;">
+                     <span style="font-size: 17px;"> Messages</span>
+                    </div>
+                  </div>
+                </button>
+                <button class="feed btn btn-flat" style="width: 100%; background-color: white;">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;padding-left:unset;">
+                      <i class="fa fa-calendar" style="font-size: 17px; margin-top: 5px;"></i>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"  style="text-align: left;">
+                     <span style="font-size: 17px;"> Events</span>
+                    </div>
+                  </div>
+                </button>
+                <button class="feed btn btn-flat" style="width: 100%; background-color: white;">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;padding-left:unset;">
+                      <i class="fa fa-users" style="font-size: 17px; margin-top: 5px;"></i>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"  style="text-align: left;">
+                     <span style="font-size: 17px;"> Groups</span>
+                    </div>
+                  </div>
+                </button>
+                <button class="feed btn btn-flat" style="width: 100%; background-color: white;">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;padding-left:unset;">
+                      <i class="fa fa-clone" style="font-size: 17px; margin-top: 5px;"></i>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"  style="text-align: left;">
+                     <span style="font-size: 17px;"> Pages</span>
+                    </div>
+                  </div>
+                </button> -->
+            </div>
+          </div>
+          <div class="flex-item-2">
+            <div class="box" style="border-top: unset;height: 100%;">
+              <div class="box-header with-border">
+                <h3 class="box-title">Create Post</h3>
+              </div>
+              <div class="box-body">
+                <textarea rows="5" style="width: 100%;border: 1px solid #f4f4f4;" [(ngModel)]="message" class="form-control" placeholder="Write Someting....."></textarea>
+                <div class="row" *ngIf="images.length>0">
+                  <div class="col-md-12 mb-3">
+                    <div scrollX="true" class="wide-as-needed"  scrollbar="false">
+                      <div class="category-item" *ngFor="let i of images;let index=index" >
+                        <div class="category-card card" >
+                          <img [src]=i.path  style="border-radius: 10px;width:100%;height: 150px;">
+                
+                          <div class="top-right" ><i class="fa fa-close" (click)="delete(index)" style="color: red;font-weight: 500;"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="background-color: #f4f4f4;
+                margin: unset;
+                padding: 5px;">
+                  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="text-align: center;">
+                    <div class="image-upload">
+                      <label for="file-input">
+                        <i class="fa fa-image" style="font-size: 20px; padding-top: 6px;cursor: pointer;"></i>
+                      </label>
+                    
+                      <input id="file-input" (change)="uploadFile($event)" type="file" multiple accept="image/*" />
+                    </div>
+                  </div>
+                  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-10">
+                    <button class="btn btn-primary" (click)="createPost()" style="background-color: #1E6DD2 !important; float: right;"><i class="fa fa-send" style="margin-right: 10px;"></i>Post</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.box -->
+          </div>
+        </div>
+        <div class="flex-box">
+          <div class="flex-item-1">
+            <div class="card" style="box-shadow: 0 1px 1px rgb(0 0 0 / 10%);padding: 10px;margin-bottom: 10px;background-color: white;">
+              <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="padding-right: unset;text-align: center;">
+                  <span style="font-size: 18px;">{{birthdays.length}}</span>
+                </div>
+                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: 3px;margin-bottom: unset;">Events This week</h4>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px;" *ngFor="let item of birthdays">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;text-align: center;">
+                  <img src="assets/img/cake.png" style="width: 50%;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: unset;margin-bottom: unset;"><b>{{item.firstName}}'s Birthday</b> <br><span style="font-size: 15px;">{{(item.day === undefined)?(item.birthDate | date:'EEEE, d MMMM'):item.day+", "+(item.birthDate | date:'d MMMM')}}</span></h4>
+                </div>
+              </div>
+              <!-- <div class="row" style="margin-top: 10px;">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="padding-right: unset;text-align: center;">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: unset;margin-bottom: unset;">Team Meeting at 3:00 pm</h4>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="padding-right: unset;text-align: center;">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: unset;margin-bottom: unset;">Sales Training at 12:00 pm</h4>
+                </div>
+              </div> -->
+            </div>
+            <!-- <div class="card" style="box-shadow: 0 1px 1px rgb(0 0 0 / 10%);padding: 10px;background-color: white;">
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: unset;">
+                  <i class="fa fa-ellipsis-h" style="float: right;"></i>
+                  <h4 style="margin-top: unset;margin-bottom: unset;font-weight: 600;">People you may know</h4>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;">
+                  <img src="assets/img/avatar5.png" style="width: 100%; border-radius: 50%;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: 5px;margin-bottom: unset;font-weight: 600;">Preeti Ghadge</h4>
+                  <p>Sales Department</p>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;">
+                  <img src="assets/img/avatar5.png" style="width: 100%; border-radius: 50%;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: 5px;margin-bottom: unset;font-weight: 600;">Preeti Ghadge</h4>
+                  <p>Sales Department</p>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;">
+                  <img src="assets/img/avatar5.png" style="width: 100%; border-radius: 50%;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: 5px;margin-bottom: unset;font-weight: 600;">Preeti Ghadge</h4>
+                  <p>Sales Department</p>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: unset;">
+                  <img src="assets/img/avatar5.png" style="width: 100%; border-radius: 50%;">
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                  <h4 style="margin-top: 5px;margin-bottom: unset;font-weight: 600;">Preeti Ghadge</h4>
+                  <p>Sales Department</p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="flex-item-2">
+            <div class="box box-widget" *ngFor="let item of allPosts">
+              <div class="box-header with-border">
+                <div class="user-block">
+                  <img class="img-circle" src="assets/img/user1-128x128.jpg" alt="User Image">
+                  <span class="username"><a href="#">{{item.userData[0].salutation}} {{item.userData[0].firstName}} {{item.userData[0].lastName}}</a></span>
+                  <span class="description">{{item.createdAt | date:'short'}}</span>
+                </div>
+                <!-- /.user-block -->
+                <!-- <div class="box-tools">
+                  <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                    <i class="fa fa-ellipsis-h" style="float: right;"></i>
+                    </button>
+                </div> -->
+                <!-- /.box-tools -->
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <!-- post text -->
+                <p style="text-transform: capitalize;">{{item.message}}</p>
+                <div class="row attachment-block"  *ngIf="item.images.length > 0">
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="text-align: center;" *ngFor="let i of item.images">
+                    <img class="attachment-img" style="width:100% !important;height:200px !important;margin-right: 20px;margin-bottom:10px;max-width: unset;max-height: unset;" [src]=i.path alt="Attachment Image">
+                  </div>
+                </div>
+                  <hr style="margin-bottom: unset;border-width: unset !important;height: unset; border-top:1px solid #f4f4f4">
+                <button type="button" class="btn btn-xs" style="background-color: white;font-size: 16px;" (click)="createPostLikes(item._id)" *ngIf="!item.isLike"><i class="fa fa-heart-o"></i> {{(item.likes == undefined)?0:item.likes.length}} Likes</button>
+                <button type="button" class="btn btn-xs" style="background-color: white;font-size: 16px;" (click)="deletePostLikes(item._id)" *ngIf="item.isLike"><i class="fa fa-heart" style="color: red;"></i> {{(item.likes == undefined)?0:item.likes.length}} Likes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</ion-content>

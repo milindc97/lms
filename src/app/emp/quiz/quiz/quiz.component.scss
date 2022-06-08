@@ -1,0 +1,31 @@
+.margin-left{
+    margin-left: 10px;
+}
+.options{
+    border:1px solid lightgray;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.option_name{
+    font-size: 18px;
+    margin-top: 10px; 
+    margin-bottom: unset;
+    
+}
+.panel{
+    background-color: #fae2d9;
+    border:1px solid #ff9e7b;
+    border-radius: 15px;
+    padding-bottom: 10px;
+    .panel-body{
+        background-color: white;
+        margin: 0px 20px;
+        border:1px solid #ff9e7b;
+        border-radius: 10px;
+    }
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+}
+  

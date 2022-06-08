@@ -1,0 +1,125 @@
+<ion-content>
+    <div class="content-wrapper">
+        <section class="content-header">
+
+        </section>
+        <section class="content">
+            <div class="box box-style">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center padding-no">
+                                <h4 class="head text-primary" style="font-weight: bold;">{{'Programs' | translate}}</h4>
+                                <span class="head-number">{{prgLength}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center padding-no">
+                                <h4 class="head text-primary" style="font-weight: bold;">{{'Course' | translate}}</h4>
+                                <span class="head-number">{{courseLength}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center padding-no">
+                                <h4 class="head text-primary" style="font-weight: bold;">{{'Module' | translate}}</h4>
+                                <span class="head-number">{{moduleLength}}</span>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center padding-no">
+                                <h4 class="head text-primary" style="font-weight: bold;">{{'Quiz' | translate}}</h4>
+                                <span class="head-number">{{quizLength}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                        <div class="row order-card">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <h3 class="order-head" style="overflow-wrap: initial;">{{'Recent' | translate}} <h4
+                                        class="order-head-in" style="overflow-wrap: initial;">
+                                        {{'Quiz Stats' | translate}}</h4>
+                                </h3>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                <h3 class="order-head" style="overflow-wrap: initial;">{{'Quiz' | translate}} <h4
+                                        class="order-head-in text-dark" style="overflow-wrap: initial;">{{quizTitle}}
+                                    </h4>
+                                </h3>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                <h3 class="order-head" style="margin-bottom: unset;overflow-wrap: initial;">{{examTime}}
+                                </h3>
+                                <span class="order-head-in text-dark"
+                                    style="overflow-wrap: initial;">{{'Avg Time for Questions' | translate}}</span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                <h3 class="order-head" style="margin-bottom: unset;">{{correctAnswer}}/{{totalQuestion}}
+                                </h3>
+                                <span class="order-head-in text-dark"
+                                    style="overflow-wrap: initial;">{{'Questions correct' | translate}}</span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                <h3 class="order-head" style="margin-bottom: unset;">{{score}}%</h3>
+                                <span class="order-head-in text-dark"
+                                    style="overflow-wrap: initial;">{{'Scored' | translate}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                        <div class="card" style="margin-bottom: 10px;">
+                            <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue"
+                                [centralLabel]="centralLabel" [options]="options" [name]="name"
+                                [bottomLabel]="bottomLabel"></rg-gauge-chart>
+                        </div>
+                        <div class="card">
+                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                [chartType]="barChartType" height="150">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                        <h1 class="text">{{'Start Preparing Yourself' | translate}}</h1>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-lg-offset-6 col-md-offset-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 card">
+                                <button class="btn btn-warning"
+                                    style="float: right;margin-top: 10px; font-weight: bold; font-size: 20px;"
+                                    *ngIf="startQ" (click)="startQuiz()">{{'Start Quiz' | translate}}</button>
+                                <button class="btn btn-warning"
+                                    style="float: right;margin-top: 10px; font-weight: bold; font-size: 20px;"
+                                    *ngIf="!startQ" disabled>{{'Start Quiz' | translate}}</button>
+
+                                <div>
+                                    <h3 style="margin-bottom:unset;margin-top: 10px;">{{currentQuizTitle}}</h3>
+                                    <p class="text-warning" style="font-weight: bold;">
+                                        {{'Objective Questions' | translate}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-lg-offset-6 col-md-offset-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 card" style="padding-right: 16%; ">
+                                <p style="font-size: 18px;">Previous Attempt Result</p>
+                                <p class="text-success" style="font-weight: bold;margin-top: 10px; font-size: 15px; ">
+                                    Correct Questions:<span style="font-size: 20px; float: right; ">{{correctAnswer}}</span></p>
+                                    <p class="text-danger" style="font-weight: bold;margin-top: 10px; font-size: 15px; ">
+                                        Wrong Questions:<span style="font-size: 20px; float: right; ">{{wrongAnswer}}</span></p>
+                                        <p class="text-warning" style="font-weight: bold;margin-top: 10px; font-size: 15px; ">
+                                            Skip Questions:<span style="font-size: 20px; float: right; ">{{skipAnswer}}</span></p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 card">
+                        <div class="note-card">
+                            <h3 style="font-weight: bold;">Please Note</h3>
+                            <p style="font-size:16px;">While you take the test, you will be monitored through out the exam, and your camera will be on</p>
+                            <p style="font-size:16px;">We also hope that you will be attempting the exam honestly without any assitance, and to the best of your knowledge and ability</p>
+                        </div>
+                        
+                    </div> 
+                </div> -->
+            </div>
+        </section>
+    </div>
+</ion-content>

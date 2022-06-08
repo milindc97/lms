@@ -1,0 +1,111 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+        {{'Module Overview' | translate}}
+      </h1>
+    </section>
+    <section class="content">
+  
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+          <div class="box box-solid">
+            <div class="box-header">
+              <h4 style="margin-bottom:10px;font-weight: bold;">{{FirstModuleData.title}}</h4>
+              
+            </div>
+            <div class="box-body">
+          <div class="nav-tabs-custom" style="box-shadow: unset;margin-bottom: 10px;">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#video" data-toggle="tab">{{'Video' | translate}}</a></li>
+              <li><a href="#pdfdocument" data-toggle="tab">{{'PDF Document' | translate}}</a></li>
+              <!-- <li><a href="#otherdocument" data-toggle="tab">{{'MS Office Document' | translate}}</a></li> -->
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="video">
+                <div class="" *ngIf="youtubes.length > 0">
+                
+                  <iframe width="100%" style="margin-bottom: 10px;"  height="400" [src]="youtubes[0].path | youtubeSafeUrl"
+                    title="YouTube video player" frameborder="0"
+                    allowfullscreen></iframe>
+                    
+                   
+                </div>
+                <span *ngFor="let item of FirstModuleData.youtubes;let i =index"  id="itemy{{i}}" (click)="changeYoutube(i,item)"
+                     style="margin: 10px 10px 10px 0px;cursor: pointer;">Video {{i+1}}</span>
+              </div>
+              <div class="tab-pane" id="pdfdocument">
+                <div class="" *ngIf="documents.length > 0" style="margin-bottom: 10px;">
+                    <div *ngIf="documents[0].type == 'application/pdf'">
+                      <pdf-viewer
+                      src="{{baseURL}}/retrieve/{{documents[0].path}}/{{authService.currentUserValue.accessToken}}"
+                      [original-size]="true"
+                      [fit-to-page]="true"
+              [show-all]="false"
+              [page]="page"
+              (after-load-complete)="afterLoadComplete($event)"
+                      style="width: 100%; display: block; height: 620px;border: 1px solid #d9d7d7;">
+                    </pdf-viewer>
+                    
+                    <div *ngIf="isLoaded" style="text-align: center;">
+                      <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                      <span>{{ page }} / {{ totalPages }}</span>
+                      <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+                    </div>
+                    </div>
+                  </div>
+                    <span *ngFor="let item of FirstModuleData.documents;let i =index"  id="item{{i}}" (click)="changeDocument(i,item)"
+                     style="margin: 10px 10px 10px 0px;cursor: pointer;">Document {{i+1}}</span>
+              </div>
+              <!-- <div class="tab-pane" id="otherdocument">
+                <div class="" *ngIf="mdocuments.length > 0" style="margin-bottom: 10px;">
+                    <div *ngIf="mdocuments[0].type == 'Other'">
+                      <iframe  width="100%" height="400" [src]="videoURL(mdocuments[0].path)"
+                      frameborder="0"></iframe>
+                      
+                    </div>
+                  </div>
+                    <span *ngFor="let item of FirstModuleData.mdocuments;let i =index"  id="itemm{{i}}" (click)="changeDocument1(i,item)"
+                     style="margin: 10px 10px 10px 0px;cursor: pointer;">Document {{i+1}}</span>
+              </div> -->
+            </div>
+          </div>
+          <!-- <span style="float: right;margin-top: unset;" *ngIf="displayTime != ''"> {{displayTime}}</span> -->
+          <button class="btn btn-warning tooltip1" style="float: right;margin-top: unset;" disabled *ngIf="!startTestS"
+          ><i class="fa fa-lock"></i> {{'START TEST' | translate}}<span class="tooltiptext1">Unlock in {{hours}} hours {{minutes}} minutes</span></button>
+          <button class="btn btn-warning" style="float: right;margin-top: unset;"  *ngIf="startTestS" (click)="presentAlertConfirm()"
+          >{{'START TEST' | translate}}</button>
+              <p style="padding-top: 10px;">{{FirstModuleData.description}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
+          <div class="box box-solid">
+            <div class="box-header"></div>
+            <div class="box-body" style="height: 70vh; overflow: auto;">
+              <h4 style="margin-top: unset;font-weight: 600;">{{'Modules' | translate}}</h4>
+              <div *ngFor="let module of moduleData;let i=index;" id="abc{{module._id}}" class="row1"
+                style="cursor: pointer;padding: unset; border-radius: 15px;" (click)="clickDocument(module,i)">
+                <div class="row">
+                  <div class="col-lg-5 col-md-5 col-xs-5 col-sm-5 text-center border-grid" style="padding:unset">
+                    <div class="container1">
+                      <img src="{{baseURL}}/retrieve/{{module.thumbnail}}/{{authService.currentUserValue.accessToken}}"
+                      onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" style="width:100%; height: 150px;border-radius: 15px 0px 0px 15px;">
+                    </div>
+                  </div>
+                  <div class="col-lg-7 col-md-7 col-xs-7 col-sm-7" style="padding-left: 10px;">
+                    <h4 style="margin-bottom: unset;color: dimgray;font-weight: bold;">{{module.title}}</h4>
+                    <p style="margin-bottom: unset;">{{module.description}}</p>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </section>
+  </div>
+  </ion-content>

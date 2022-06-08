@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="row"  style="margin-bottom: 20px;">
+        <div class="col-md-9 col-xs-12 col-sm-12">
+          <h1 class="text-warning" style="font-weight: 600;">
+            {{'Certificates' | translate}}
+          </h1>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+     
+      <div class="box box-solid">
+        <div class="box-body" *ngIf="certificateData.length > 0">
+          
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12" *ngFor="let item of certificateData;let i = index"  style="cursor: pointer;margin-bottom: 10px;">
+              <div class="box1">
+                <a href="{{baseURL}}/retrieve/certificate/{{item.certificate}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="{{baseURL}}/retrieve/certificate/{{item.certificate}}/{{authService.currentUserValue.accessToken}}"  onerror="this.onerror=null;this.src='assets/img/image-analysis.png';" class="image" /></a>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+        <div class="box-body" *ngIf="certificateData.length == 0">
+          
+          <div class="row">
+            <h3 class="text-center">No Certificates Found</h3>
+          </div>
+        </div>
+        <div class="box-body" *ngIf="loading">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
+              <div class="box1">
+                <ion-skeleton-text animated class="image" style="margin-top:unset !important;margin-bottom: 10px;"></ion-skeleton-text>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+  </div>
+  </ion-content>

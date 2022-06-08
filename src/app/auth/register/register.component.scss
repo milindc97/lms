@@ -1,0 +1,57 @@
+
+
+
+.login-box-msg, .register-box-msg {
+    margin: 0;
+    text-align: unset;
+    padding: 0 20px 20px 0px;
+}
+
+.main-footer {
+    border-top: unset;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-left: unset;
+    display: block;
+}
+.btn-validate{
+    padding: 5px 10px !important;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .login-box{
+        width: 65%;
+    }
+    
+    .login-box-body{
+        padding: 20px;
+    }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .login-box{
+        width: 65%;
+    }
+    
+    .login-box-body{
+        padding: 40px;
+    }
+  }

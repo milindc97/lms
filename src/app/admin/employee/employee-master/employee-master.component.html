@@ -1,0 +1,90 @@
+<ion-content>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <div class="hidden-xs hidden-sm" style="float: right;">
+          <button type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i class="fa fa-download"></i></button>
+          &nbsp;
+          <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button>
+          &nbsp;
+          <button type="button" class="btn btn-warning" (click)="syncEmployee()">{{'Sync ZingHR' | translate}}</button>
+        </div>
+        <div class="form-group hidden-xs hidden-sm" style="float: right; margin-right: 10px;">
+          <select class="form-control" style="background: #ffbc2c !important;
+          color: white; border-color: unset;" (change)="filterByStatus($event)">
+            <option value="2" selected>{{'All' | translate}}</option>
+            <option value="1">Activate</option>
+            <option value="0">Deactivate</option>
+          </select>
+        </div>
+        {{'Employee Master' | translate}}
+      </h1>
+
+    </section>
+    <div class="hidden-lg hidden-md" style="padding: 0px 15px 0px 15px;">
+
+      <button type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i class="fa fa-download"></i></button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      <button type="button" class="btn btn-warning" (click)="syncEmployee()">{{'Sync ZingHR' | translate}}</button>
+      <div class="form-group" style="margin-top: 10px;">
+        <select class="form-control" style="background: #ffbc2c !important;
+        color: white; border-color: unset;" (change)="filterByStatus($event)">
+          <option value=2 selected>{{'All' | translate}}</option>
+          <option value=1>Activate</option>
+          <option value=0>Deactivate</option>
+        </select>
+      </div>
+    </div>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <p class="text-center" *ngIf="loading">Loading...</p>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Emp Code' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'Email' | translate}}</th>
+                  <th>{{'Mobile' | translate}}</th>
+                  <th>{{'M/F' | translate}}</th>
+                  <th>{{'Dpt.' | translate}}</th>
+                  <th class="text-center">{{'Status' | translate}}</th>
+                  <th class="text-center">{{'Action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of employeesData;let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.employeeCode}}</td>
+                  <td>{{item.salutation}} {{item.firstName}} {{item.lastName}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.mobile}}</td>
+                  <td>{{item.gender}}</td>
+                  <td>{{item.department}}</td>
+                  <td class="text-center">
+                    <label class="switch" *ngIf="item.status">
+                      <input type="checkbox" (click)="changeEmployeeStatus(item._id,$event)" checked>
+                      <span class="slider round"></span>
+                    </label>
+                    <label class="switch" *ngIf="!item.status">
+                      <input type="checkbox" (click)="changeEmployeeStatus(item._id,$event)">
+                      <span class="slider round"></span>
+                    </label>
+                  </td>
+                  <td class="text-center"> <button type="button" (click)="editEmployee(item._id)"
+                      class="btn btn-primary"><i class="fa fa-edit"></i></button>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+</ion-content>

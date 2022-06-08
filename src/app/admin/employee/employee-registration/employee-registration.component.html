@@ -1,0 +1,113 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'Employee Registration' | translate}}
+      </h1>
+      <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div>
+    </section>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-header">
+          <h4 class="text-warning">{{'Pending Records' | translate}}</h4>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Emp Code' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'Email' | translate}}</th>
+                  <th>{{'Mobile' | translate}}</th>
+                  <th>{{'M/F' | translate}}</th>
+                  <th>{{'Action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of pendingUserRequests;let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.employeeCode}}</td>
+                  <td>{{item.salutation}} {{item.firstName}} {{item.lastName}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.mobile}}</td>
+                  <td>{{item.gender}}</td>
+                  <td><button class="btn btn-success" style="margin-right: 10px;"
+                      (click)="updateSuccessStatus(item._id)"><i class="fa fa-check"></i></button>
+                    <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-default"><i
+                        class="fa fa-close" (click)="showModal(item._id)"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="box box-solid">
+        <div class="box-header">
+          <h4 class="text-warning">{{'All Records' | translate}}</h4>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Emp Code' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'Email' | translate}}</th>
+                  <th>{{'Mobile' | translate}}</th>
+                  <th>{{'M/F' | translate}}</th>
+                  <th>{{'Status' | translate}}</th>
+                  <th>{{'Remark' | translate}}</th>
+                  <th>{{'Date' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of oldUserRequests;let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.employeeCode}}</td>
+                  <td>{{item.salutation}} {{item.firstName}} {{item.lastName}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.mobile}}</td>
+                  <td>{{item.gender}}</td>
+                  <td><a class="text-green" *ngIf="item.status == 1"><i class="fa fa-square" style="font-size: 25px;"></i></a>
+                    <a class="text-red" *ngIf="item.status == 2"><i class="fa fa-square" style="font-size: 25px;"></i></a></td>
+                  <td>{{(item.remark=='')?'-':item.remark}}</td>
+                  <td>{{item.updatedAt | date:'dd/MM/yyyy hh:mm a'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" #close aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{'Remark for Rejection' | translate}}</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group {{remarkError}}">
+              <label>{{'Remark' | translate}}</label>
+              <input placeholder="Remark" type="text" [(ngModel)]="remark" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">{{'Close' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="updateRejectedStatus()">{{'Save' | translate}}</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    </div>
+    
+    <!-- /.modal -->
+</ion-content>

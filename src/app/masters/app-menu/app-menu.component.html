@@ -1,0 +1,321 @@
+<aside class="main-sidebar" *ngIf="isEmp">
+  <section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="hidden-xl hidden-lg hidden-md" style="padding-top:50px;"></li>
+      <li class="">
+        <img src="assets/img/flogo.png" id="smallLogo" width="100%">
+        <img src="assets/img/flogo.png" id="largeLogo" width="90%" style="padding: 10px;">
+      </li>
+      <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/master_icon.png" width="25px">&nbsp;&nbsp;
+          <span>{{'Master' | translate}}</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a class="hide-mobile" routerLink="/dashboard"><img src="assets/img/dashboard.png" width="50px"> {{'Dashboard' | translate}}</a></li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/program">
+              <div class="sidenav-container">
+                <img src="assets/img/Program.png" width="50px" class="item" style="padding: 9px;">
+                <span class="item">{{'Program' | translate}}</span>
+                <span class="compStatus">{{programCompleted}}/{{programPending}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/course">
+              <div class="sidenav-container">
+                <img src="assets/img/corses.png" width="50px" class="item">
+                <span class="item">{{'Courses' | translate}} </span>
+                <span class="compStatus">{{courseCompleted}}/{{coursePending}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/module">
+              <div class="sidenav-container">
+                <img src="assets/img/module.png" width="50px" class="item">
+                <span class="item">{{'Module' | translate}} </span>
+                <span class="compStatus">{{moduleCompleted}}/{{modulePending}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/quiz">
+              <div class="sidenav-container">
+                <img src="assets/img/QuizManager.png" width="50px" class="item" style="padding: 9px;">
+                <span class="item">{{'Quiz' | translate}} </span>
+                <span class="compStatus">{{quizCompleted}}/{{quizPending}}</span>
+              </div>
+            </a>
+          </li>
+
+          <!-- <li><a routerLink="/emp/program"><img src="assets/img/Program.png" width="50px" style="padding: 9px;"> Videos</a></li>
+          <li><a routerLink="/emp/program"><img src="assets/img/corses.png" width="50px"> Performance</a></li>
+          <li><a routerLink="/emp/program"><img src="assets/img/module.png" width="50px"> Quiz Manager</a></li> -->
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/activity.png" width="25px">&nbsp;&nbsp;
+          <span>{{'Activity' | translate}}</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a class="hide-mobile" routerLink="/emp/notification">
+              <div class="sidenav-container">
+                <img src="assets/img/notification.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Notification' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/help">
+              <div class="sidenav-container">
+                <img src="assets/img/support.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Help' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/calender">
+              <div class="sidenav-container">
+                <img src="assets/img/calender.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Calender' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="hide-mobile" routerLink="/emp/certificates">
+              <div class="sidenav-container">
+                <img src="assets/img/certification.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Certificates' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <!-- <li><a routerLink="/program"><img src="assets/img/notification.png" width="30px">&nbsp;&nbsp;FAQ</a></li> -->
+        </ul>
+      </li>
+      <!-- <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/reports.png" width="25px">&nbsp;&nbsp;
+          <span>Reports</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+        </ul>
+      </li> -->
+    </ul>
+  </section>
+</aside>
+<aside class="main-sidebar" *ngIf="isAdmin">
+  <section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="">
+        <img src="assets/img/flogo.png" id="smallLogo" width="100%">
+        <img src="assets/img/flogo.png" id="largeLogo" width="90%" style="padding: 10px;">
+      </li>
+      <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/master_icon.png" width="25px">&nbsp;&nbsp;
+          <span>{{'Master' | translate}}</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a routerLink="/dashboard">
+                <div class="sidenav-container">
+                  <img src="assets/img/dashboard.png" class="item" width="50px">
+                  <span class="item">{{'Dashboard' | translate}}</span>
+                </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/employee/master">
+              <div class="sidenav-container">
+                <img src="assets/img/employee_master.png" width="50px" class="item">
+                <span class="item">{{'Employee Master' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/program/list">
+              <div class="sidenav-container">
+                <img src="assets/img/Program.png" width="50px" class="item" style="padding: 9px;">
+                <span class="item">{{'Program' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/courses/list">
+              <div class="sidenav-container">
+                <img src="assets/img/corses.png" width="50px" class="item">
+                <span class="item">{{'Courses' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/module/list">
+              <div class="sidenav-container">
+                <img src="assets/img/module.png" width="50px" class="item">
+                <span class="item">{{'Module' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/quiz/list">
+              <div class="sidenav-container">
+                <img src="assets/img/QuizManager.png" width="50px" class="item" style="padding: 9px;">
+                <span class="item">{{'Quiz Manager' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/program/allocation">
+              <div class="sidenav-container">
+                <img src="assets/img/ProgramAllocation.png" width="50px" class="item" style="padding: 9px;">
+                <span class="item">{{'Allocation' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/employee/registration">
+              <div class="sidenav-container">
+                <img src="assets/img/employee_registration.png" width="50px" class="item">
+                <span class="item">{{'Employee Registration' | translate}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/activity.png" width="25px">&nbsp;&nbsp;
+          <span>{{'Activity' | translate}}</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a routerLink="/admin/notification">
+              <div class="sidenav-container">
+                <img src="assets/img/notification.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Notification' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/help">
+              <div class="sidenav-container">
+                <img src="assets/img/support.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Help' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/policy">
+              <div class="sidenav-container">
+                <img src="assets/img/insurance.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Policy' | translate}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#" class="pull-title text-lg">
+          <img src="assets/img/reports.png" width="25px">&nbsp;&nbsp;
+          <span>{{'Report' | translate}}</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a routerLink="/admin/report/employee-performance">
+              <div class="sidenav-container">
+                <img src="assets/img/performance.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Employee Performance' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/session-activity">
+              <div class="sidenav-container">
+                <img src="assets/img/stopwatch.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Session Activity' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/api-log">
+              <div class="sidenav-container">
+                <img src="assets/img/api.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'API Log' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/allocation">
+              <div class="sidenav-container">
+                <img src="assets/img/allocationreports.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Allocation Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/coursewise">
+              <div class="sidenav-container">
+                <img src="assets/img/coursewise.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Course wise Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/quizwise">
+              <div class="sidenav-container">
+                <img src="assets/img/quizwise.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Quiz wise Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/scorewise">
+              <div class="sidenav-container">
+                <img src="assets/img/scorewise.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'Score wise Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/userwise">
+              <div class="sidenav-container">
+                <img src="assets/img/userwise.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'User wise Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/report/statedeptwise">
+              <div class="sidenav-container">
+                <img src="assets/img/statewise.png" width="30px" class="item" style="padding: 5px;">
+                <span class="item">{{'State and Department wise Report' | translate}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</aside>

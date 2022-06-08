@@ -1,0 +1,80 @@
+<ion-content>
+  <div class="content-wrapper">
+      <section class="content-header">
+        <h1>
+          {{'Support' | translate}}
+        </h1>
+      </section>
+    
+      <section class="content">
+        <div class="box box-solid">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-lg-8">
+                  <div class="form-group {{subjectError}}">
+                  <label>{{'Subject' | translate}}</label>
+                  <input placeholder="Enter subject" type="text" class="form-control" [(ngModel)]="subject">
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group {{fileError}}" >
+                  <label>{{'Upload File' | translate}}</label>
+                  <div class="thumbnail1 input-group  form-control {{fileError}}" style="padding: unset !important;">
+                    <p *ngIf="!uploadfile" style="padding: 6px 10px;margin: unset;">{{'Choose a file' | translate}}</p>
+                    <p *ngIf="uploadfile" style="padding: 6px 10px;margin: unset;">{{uploadfilename}}</p>
+                   <input type="file" class="hide_file" (change)="uploadFile($event)">
+                   <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                  </div>
+                  
+                </div>
+                <div class="col-lg-12" *ngIf="fileLink !== ''">
+                  <a href="{{baseURL}}/retrieve/{{fileLink}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View File' | translate}}</a>
+                  
+                 </div>
+            </div>
+              <div class="col-lg-12">
+                  <div class="form-group {{messageError}}">
+                  <label>{{'Message' | translate}}</label>
+                  <ngx-editor-menu [editor]="messageEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor  height="100px" [editor]="messageEditor" [(ngModel)]="message" [placeholder]="'Enter message'" [disabled]="false"></ngx-editor>
+                  </div>
+              </div>
+              <div class="col-lg-12">
+                <button type="button"
+                  class="btn btn-warning" (click)="createSupportRequest()">{{'Send' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box box-solid">
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+                <thead>
+                  <tr>
+                    <th>{{'SR' | translate}}</th>
+                      <th>{{'Subject' | translate}}</th>
+                      <th>{{'Messsage' | translate}}</th>
+                      <th>{{'Remark' | translate}}</th>
+                      <th>{{'Status' | translate}}</th>
+                      <th>{{'Date' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of supportArr; let i = index">
+                    <td class="text-muted">{{i+1}}</td>
+                    <td>{{item.subject}}</td>
+                    <td><p [innerHTML]="item.message"></p></td>
+                    <td><p [innerHTML]="item.remark"></p></td>
+                    <td><span *ngIf="item.status == 0">Pending</span><span *ngIf="item.status == 1">Resolved</span></td>
+                    <td>{{item.createdAt | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+      </section>
+    </div>
+    
+  </ion-content>

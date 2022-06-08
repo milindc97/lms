@@ -1,0 +1,922 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+//admin
+.main-footer{
+  display: none;
+  // min-height: 100vh !important;
+}
+
+.main-sidebar{
+    padding-top: unset !important;
+    z-index: 9999 !important;
+}
+.navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+    background-color: #EDE8E3 !important;
+}
+
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: #fff7f2 !important;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #0e3570 !important;
+}
+
+.skin-blue .sidebar-menu>li.header{
+    color: #0e3570;
+    background: #0e3570;
+}
+.pull-title:hover>a{
+  color: #2a2a2a !important;
+  background: #dfa97e !important;
+  font-weight: bold !important;
+  margin: 10px !important;
+  border-radius: 10px !important;
+}
+
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+    color: #2a2a2a !important;
+    background: #efccb0;
+}
+
+.skin-blue .sidebar-menu .treeview-menu>li>a {
+    color: #2a2a2a !important;
+    background: #fff7f2 !important;
+    font-weight: bold !important;
+    margin: 10px !important;
+}
+
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    margin: 0 10px;
+    background: #fff7f2 !important;
+    border-radius: 10px !important;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #fff7f2;
+}
+
+.text-primary{
+    color: #0e3570 !important;
+}
+
+.text-warning {
+  color: #ffbc2c !important;
+}
+
+.text-dark{
+    color: #263238 !important;
+}
+
+.text-dark-light{
+    color: #455a64 !important; 
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.btn-primary{
+    background: #ffbc2c !important;
+    border-color:unset;
+}
+
+.btn-warning{
+    background: #ffbc2c !important;
+    border-color:unset;
+}
+
+.create-box{
+    float: right;
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+.dashboard-icon{
+    background-image: url('assets/img/avatar04.png') !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.sidebar-menu li>a {
+  color: #2a2a2a !important;
+    background: #dfa97e;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+
+// Toggle Button
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 25px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f44336;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #4caf50;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #4caf50;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+// Toggle Button end
+
+
+// Tags input
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  display: inline-block;
+  padding: 4px 6px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  max-width: 100%;
+  line-height: 22px;
+  cursor: text;
+}
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  color: white;
+}
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+// Tags Input End
+
+.content-header h1{
+  color: #ffbc2c !important;
+}
+
+
+//Custom Radio Button
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffbc2c;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+// Custom Radio Button End
+
+
+input[type='checkbox']:after {
+  width: 15px;
+  height: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type='checkbox']:checked:after {
+  width: 15px;
+  height: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffbc2c;
+  content: '\2713';
+  color:white;
+  padding-left: 2px;
+  font-size: 10px;
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+.login-page, .register-page {
+  background: #fff;
+}
+
+#smallLogo{
+  display: none;
+}
+
+.sidebar-collapse {
+  #largeLogo{
+    display: none;
+  }
+
+  #smallLogo{
+    display: block;
+  }
+  
+}
+
+.sidebar-open {
+  #largeLogo{
+    display: unset;
+  }
+
+  #smallLogo{
+    display: none;
+  }
+  
+}
+
+.sidenav-container {
+  width: 100%;
+  display: flex;
+}
+
+.sidenav-container .item {
+  flex-grow: 0;
+  flex-shrink: 1;
+  align-self: center;
+  white-space: normal;
+}
+
+.sidenav-container .item:nth-of-type(1) {
+  flex-shrink: 3;
+}
+
+// .sidenav-container > .title{
+//   -ms-flex: 3;  /* IE 10 */  
+//   flex: 3;
+//   align-self: center;
+// }
+
+
+// html {
+//   overflow: scroll;
+//   overflow-x: hidden;
+// }
+// ::-webkit-scrollbar {
+//   width: 0;  /* Remove scrollbar space */
+//   background: transparent;  /* Optional: just make scrollbar invisible */
+// }
+// /* Optional: show position indicator in red */
+// ::-webkit-scrollbar-thumb {
+//   background: #ffbc2c;
+// }
+
+.pointer{
+  cursor: pointer;
+}
+
+.pull-title{
+  span{
+    margin: unset !important;  
+    border-radius: 10px !important;
+  }
+} 
+
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #ffbc2c;
+} 
+
+.row{
+  margin-left: unset;
+  margin-right: unset;
+}
+.box-warning {
+  border-top-color: #ffbc2c !important;
+}
+.gauge-chart__label{
+  margin-top: -50px !important;
+  color: #ffbc2c;
+  position: absolute;
+    left: 46%;
+}
+.gauge-chart span{
+  font-size: 14px !important;
+  margin-top: 10px;
+}
+.gauge-chart{
+  display: block !important;
+  margin:  0 auto;
+}
+// .progress, .progress-indeterminate{
+//   background-color: #C43606 !important;
+// }
+/* Importing Bootstrap SCSS file. */
+// @import '~bootstrap/scss/bootstrap';
+@import '../src/assets/css/progress';
+
+
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 768px) {
+  .flex-box{
+    display: block;
+  }
+
+  .sm-mt-10{
+    margin-top: 10px;
+  }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .flex-box{
+    display: block;
+  }
+
+  .sm-mt-10{
+    margin-top: 10px;
+  }
+  
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .flex-box{
+    display: flex;
+  }
+
+  .sm-mt-10{
+    margin-top: unset;
+  }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .flex-box{
+    display: flex;
+  }
+
+  .sm-mt-10{
+    margin-top: unset;
+  }
+ }
+
+ //emp
+ .content-wrapper{
+  margin-top: 50px !important;
+  min-height: 100vh !important;
+  overscroll-behavior-y: contain;
+}
+.main-sidebar{
+    padding-top: unset !important;
+}
+.navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+    background-color: #fff7f2 !important;
+}
+
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: #fff7f2 !important;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #fff7f2 !important;
+}
+
+.skin-blue .sidebar-menu>li.header{
+    color: #fff7f2;
+    background: #fff7f2;
+}
+.pull-title:hover>a{
+  color: #2a2a2a !important;
+  background: #dfa97e !important;
+  font-weight: bold !important;
+  margin: 10px !important;
+  border-radius: 10px !important;
+}
+
+.sidenav-container {
+  width: 100%;
+  display: flex;
+}
+
+.sidenav-container .item {
+  flex-grow: 0;
+  flex-shrink: 1;
+  align-self: center;
+  white-space: normal;
+}
+
+.sidenav-container .item:nth-of-type(1) {
+  flex-shrink: 3;
+}
+
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+    color: #2a2a2a !important;
+    background: #efccb0;
+}
+
+.skin-blue .sidebar-menu .treeview-menu>li>a {
+    color: #2a2a2a !important;
+    background: #fff7f2 !important;
+    font-weight: bold !important;
+    margin: 10px !important;
+}
+
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    margin: 0 10px;
+    background: #fff7f2 !important;
+    border-radius: 10px !important;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #fff7f2;
+}
+.text-primary{
+    color: #0e3570 !important;
+}
+
+.text-warning {
+  color: #ffbc2c !important;
+}
+
+.text-dark{
+    color: #263238 !important;
+}
+
+.text-dark-light{
+    color: #455a64 !important; 
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: #fff7f2;
+}
+
+.btn-primary{
+    background: #ffbc2c !important;
+    border-color: unset;
+}
+
+.btn-warning{
+    background: #ffbc2c !important;
+    border-color: unset;
+}
+
+.create-box{
+    float: right;
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+.dashboard-icon{
+    background-image: url('assets/img/avatar04.png') !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.sidebar-menu li>a {
+  color: #2a2a2a !important;
+    background: #dfa97e;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#smallLogo{
+  display: none;
+}
+
+.sidebar-collapse {
+  #largeLogo{
+    display: none;
+  }
+
+  .person{
+    padding: 22px !important;
+  }
+  #smallLogo{
+    display: block;
+  }
+  
+}
+
+.sidebar-open {
+  #largeLogo{
+    display: unset;
+  }
+
+  #smallLogo{
+    display: none;
+  }
+}
+
+.pull-title{
+  span{
+    margin: unset !important;  
+    border-radius: 10px !important;
+  }
+} 
+
+
+
+// Toggle Button
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 25px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+// Toggle Button end
+
+
+// Tags input
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  display: inline-block;
+  padding: 4px 6px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  max-width: 100%;
+  line-height: 22px;
+  cursor: text;
+}
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  color: white;
+}
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+// Tags Input End
+
+.content-header h1{
+  color: #ffbc2c !important;
+}
+
+
+//Custom Radio Button
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffbc2c;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+// Custom Radio Button End
+
+
+input[type='checkbox']:after {
+  width: 15px;
+  height: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type='checkbox']:checked:after {
+  width: 15px;
+  height: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffbc2c;
+  content: '\2713';
+  color:white;
+  padding-left: 2px;
+  font-size: 10px;
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+.login-page, .register-page {
+  background: #fff;
+}
+
+
+
+.row{
+  margin-left: unset;
+  margin-right: unset;
+}
+.ytp-title-text{
+  display: none !important;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #ffbc2c;
+} 
+
+.box-warning {
+  border-top-color: #ffbc2c !important;
+}
+
+.text-success{
+  color:#81c784;
+}
+
+.text-danger{
+  color: #f44336;
+}
+.gauge-chart__label{
+  margin-top: -50px !important;
+  color: #ffbc2c;
+  position: absolute;
+    left: 46%;
+}
+.gauge-chart span{
+  font-size: 14px !important;
+  margin-top: 10px;
+}
+.gauge-chart{
+  display: block !important;
+  margin:  0 auto;
+}
+.progress, .progress-indeterminate{
+  background-color: #C43606 !important;
+}
+//calender
+.fc .fc-daygrid-day.fc-day-today{
+  background: #fff7f2 !important;
+} 
+.fc .fc-daygrid-day-number{
+  font-size: 16px;
+  color:black;
+}
+.fc .fc-col-header-cell-cushion{
+  font-size: 15px;
+  color:black;
+}
+.fc .fc-button-primary{
+  background-color:#ffbc2c !important; 
+  border-color: unset !important;
+}
+
+.fc .fc-scrollgrid-section table{
+  width:100% !important;
+}
+.fc .fc-daygrid-body{
+  width:100% !important;
+}
+
+//editor
+.NgxEditor__Content{
+  height: 100px;
+}
+.nav {
+  .open > a {
+      &,
+      &:hover,
+      &:focus {
+        background-color: unset !important;
+    }
+  }
+}

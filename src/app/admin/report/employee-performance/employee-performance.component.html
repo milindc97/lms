@@ -1,0 +1,62 @@
+<ion-content>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'Employee Performance' | translate}}
+      </h1>
+      <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i class="fa fa-download"></i></button>
+        &nbsp;
+        <button type="button" class="btn btn-primary"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div>
+    </section>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-lg-2" style="padding-left: unset;">
+              <div class="form-group ">
+                <label>{{'Search By Department' | translate}}</label>
+
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group ">
+                <select class="form-control" [(ngModel)]="department" (change)="filterByDept()">
+                  <option value="" selected disabled>{{'Select Department' | translate}}</option>
+                  <option *ngFor="let item of departmentList" value="{{item}}">{{item}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p class="text-center" *ngIf="loading">Loading...</p>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th>{{'SR' | translate}}</th>
+                  <th>{{'Emp Code' | translate}}</th>
+                  <th>{{'Name' | translate}}</th>
+                  <th>{{'Department' | translate}}</th>
+                  <th>{{'Action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of allEmployee;let i=index;">
+                  <td>{{i+1}}</td>
+                  <td>{{item.employeeCode}}</td>
+                  <td>{{item.salutation}} {{item.firstName}} {{item.lastName}}</td>
+                  <td>{{(item.department === '')?'-':item.department}}</td>
+                  <td><button class="btn btn-primary" [routerLink]="['/admin/report/employee',item._id]"><i
+                        class="fa fa-eye"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</ion-content>

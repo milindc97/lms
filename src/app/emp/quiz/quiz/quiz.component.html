@@ -1,0 +1,107 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+  
+    </section>
+  
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-offset-3 col-md-offset-3 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 style="margin-top: 10px;margin-bottom: 10px;">{{'Overview' | translate}}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="grid-container text-center">
+                <ng-template ngFor let-item [ngForOf]="usersQuestions" let-i="index">
+                  <span style="font-size: 24px;color: #81c784;" *ngIf="item.marked; else elseBlock">{{i+1}}</span>
+                  <ng-template #elseBlock>
+                    <span style="font-size: 24px;">{{i+1}}</span>
+                  </ng-template>
+                </ng-template>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="box box-solid">
+          <div class="box-header with-border" style="text-align: center;">
+            <h3 style="margin-bottom: 2px;">{{quizTitle}}</h3>
+            <h4 style="margin-top: unset;" class="text-warning">{{'Objective Questions' | translate}}</h4>
+          </div>
+  
+          <div class="box-body">
+            <div class="row">
+              <img src="assets/img/stopwatch.png" width="25px">
+              <span style="font-size: 20px; margin-left: 10px;font-weight: 600;" #countdown>{{displayTime}}</span>
+              <button class="btn btn-danger " style="position: absolute; right: 20px;"
+                (click)="submitAns()">{{'SUBMIT' | translate}}</button>
+            </div>
+            <ion-slides #slides>
+              <ion-slide *ngFor="let question of qbData; index as i" class="swiper-no-swiping">
+                <div style="width: 100%;">
+                  <div class="row">
+                    <div class="col-lg-offset-3 col-md-offset-3 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                      <h1 style="margin-bottom: unset;">{{'Question' | translate}} <span><span
+                            class="text-warning">{{i+1}}</span>/{{questionsCount}}</span></h1>
+                      <hr style="border: 1.2px solid lightgray;background: lightgray;">
+                      <p class="option_name" style="font-size: 20px; text-align: left;" [innerHTML]="question.question">
+                      </p>
+                      <ion-radio-group>
+                        <div class="col-lg-12">
+                          <ion-item class="options" lines="none">
+                            <p class="option_name" *ngIf="question.optionA !== ''" [innerHTML]="question.optionA"></p>
+                            <p class="option_name" *ngIf="question.optionA === ''">-</p>
+                            <ion-radio slot="start" mode="ios" (click)="checkAns('A',question.answer, i)"></ion-radio>
+                          </ion-item>
+                        </div>
+                        <div class="col-lg-12">
+                          <ion-item class="options" lines="none">
+                            <p class="option_name" *ngIf="question.optionB !== ''" [innerHTML]="question.optionB"></p>
+                            <p class="option_name" *ngIf="question.optionB === ''">-</p>
+                            <ion-radio slot="start" mode="ios" (click)="checkAns('B',question.answer, i)"></ion-radio>
+                          </ion-item>
+                        </div>
+                        <div class="col-lg-12">
+                          <ion-item class="options" lines="none">
+                            <p class="option_name" *ngIf="question.optionC !== ''" [innerHTML]="question.optionC"></p>
+                            <p class="option_name" *ngIf="question.optionC === ''">-</p>
+                            <ion-radio slot="start" mode="ios" (click)="checkAns('C',question.answer, i)"></ion-radio>
+                          </ion-item>
+                        </div>
+                        <div class="col-lg-12">
+                          <ion-item class="options" lines="none">
+                            <p class="option_name" *ngIf="question.optionD !== ''" [innerHTML]="question.optionD"></p>
+                            <p class="option_name" *ngIf="question.optionD === ''">-</p>
+                            <ion-radio slot="start" mode="ios" (click)="checkAns('D',question.answer, i)"></ion-radio>
+                          </ion-item>
+                        </div>
+                      </ion-radio-group>
+                    </div>
+                  </div>
+                </div>
+  
+              </ion-slide>
+            </ion-slides>
+            <div class="">
+              <div class="row" style="margin-bottom:20px">
+                <div class="col-lg-offset-3 col-md-offset-3 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: unset;">
+                  <button class="btn btn-primary" *ngIf="scnt != 1" (click)="prev()">
+                    <i class="fa fa-chevron-left" style="margin-right: 10px;"></i>{{'Previous' | translate}}</button>
+                    <button class="btn btn-warning" *ngIf="scnt >= 1 && questionsCount > scnt" (click)="next()"
+                      style="float: right;">{{'Next' | translate}} <i class="fa fa-chevron-right" style="margin-left: 10px;"></i></button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      
+  
+  
+    </section>
+  </div>
+  </ion-content>

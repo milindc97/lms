@@ -1,0 +1,225 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1 *ngIf="!edit">
+      <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+      {{'Create Question Bank' | translate}}
+    </h1>
+    <h1 *ngIf="edit">
+      <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+      {{'Edit Question Bank' | translate}}
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label>{{'Question Code' | translate}}</label>
+                  <input type="text" placeholder="" value="QB{{questionBankCode}}"  class="form-control" disabled>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group {{titleError}}">
+                  <label>{{'Title' | translate}}</label>
+                  <input name="text" placeholder="Enter Question Bank Title" type="text"
+                    class="form-control" [(ngModel)]="quizTitle" #titleChild>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group {{keywordsError}}">
+                  <label>{{'Keywords, Description, Tags' | translate}}</label>
+                  <input type="text"  placeholder="Add Keywords, Description, Tags" class="form-control" [(ngModel)]="keywords" #keywordsChild>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group {{thumbnailError}}" >
+                  <label>{{'Upload Thumbnail' | translate}}</label>
+                  <div class="thumbnail1 input-group  form-control {{thumbnailError}}" style="padding: unset !important;">
+                    <p *ngIf="!uploadthumbnail" style="padding: 6px 10px;margin: unset;">{{'Choose a thumbnail' | translate}}</p>
+                    <p *ngIf="uploadthumbnail" style="padding: 6px 10px;margin: unset;">{{uploadthumbnailname}}</p>
+                   <input type="file" class="hide_file" (change)="uploadThumbnailFile($event)" accept="image/*" #thumbnailChild>
+                   <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                  </div>
+                </div>
+                <div  *ngIf="thumbnailLink !== ''">
+                  <a href="{{baseURL}}/retrieve/{{thumbnailLink}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View thumbnail' | translate}}</a>
+                  
+                 </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group ">
+                  <label>{{'Expiry Date' | translate}}</label>
+                  <input placeholder="Enter Expiry Date" type="date" id="title" class="form-control" [(ngModel)]="expiryDate" >
+                </div>
+                
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group  {{questionsCountError}}">
+                  <label>{{'Questions Count' | translate}}</label>
+                  <input type="number" placeholder="" [(ngModel)]="questionsCount"  class="form-control"  #questionsCountChild>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group  {{quizTimeError}}">
+                  <label>{{'Quiz Time in Minutes' | translate}}</label>
+                  <input type="text" placeholder="" [(ngModel)]="quizTime"  class="form-control"  #quizTimeChild>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group {{descriptionError}}">
+                  <label>{{'Description' | translate}}</label>
+                  <textarea placeholder="Enter Description" class="form-control" [(ngModel)]="description" #descriptionChild></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12" *ngIf="!edit">
+            <button type="button" class="btn btn-warning" (click)="createQuestionBank(false)" style="margin-right: 10px;">{{'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary"  (click)="createQuestionBank(true)">{{'Save and Add Questions' | translate}}</button>
+          </div>
+          <div class="col-lg-12" *ngIf="edit">
+            <button type="button" class="btn btn-warning" style="margin-right: 10px;" (click)="updateQuestionBank()">{{'Update' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box box-solid" *ngIf="edit">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-6">
+                <label>{{'Total Questions' | translate}}: <span class="text-danger">{{questions.length}}</span></label>
+                <button type="button" class="btn btn-warning" style="margin-left: 10px;" (click)="addQ()">{{'Add Question' | translate}}</button>
+              </div>
+              <div class="col-lg-3">
+                <div class="thumbnail1 input-group  form-control" style="padding: unset !important;">
+                  <p *ngIf="!uploadfile" style="padding: 6px 10px;margin: unset;">{{'Select File for Import' | translate}}</p>
+                  <p *ngIf="uploadfile" style="padding: 6px 10px;margin: unset;">{{uploadfilename}}</p>
+                 <input type="file" class="hide_file" accept=".xlsx, .xls, .csv" (change)="selectImportFile($event)" >
+                 <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                </div>
+              </div>
+              <div class="col-lg-1">
+                <button type="button" class="btn btn-warning" style="margin-right: 10px;" (click)="importFile(selectfiles,targetFiles)">{{'Import' | translate}}</button>
+              </div>
+              
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-primary" style="margin-right: 10px;"><a href="{{baseURL}}/download/SampleQuestionFile.csv" target="_blank" style="color: unset;" download>{{'Download Sample' | translate}}</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="box box-solid" *ngIf="add">
+      <div class="box-header">
+        <h3 class="box-title" *ngIf="!update">{{'Add Question' | translate}}</h3>
+        <h3 class="box-title" *ngIf="update">{{'Edit Question' | translate}}</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="box-body pad">
+                <div class="row">
+                
+                <div class="form-group col-lg-12 {{questionError}}">
+                  <label>{{'Question' | translate}}</label>
+                  <ngx-editor-menu [editor]="questionEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor [editor]="questionEditor" [(ngModel)]="question" [disabled]="false"></ngx-editor>
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label>{{'Option A' | translate}}</label>
+                  <ngx-editor-menu [editor]="optionAEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor [editor]="optionAEditor" [(ngModel)]="optionA" [disabled]="false"></ngx-editor>
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label>{{'Option B' | translate}}</label>
+                  <ngx-editor-menu [editor]="optionBEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor [editor]="optionBEditor" [(ngModel)]="optionB" [disabled]="false"></ngx-editor>
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label>{{'Option C' | translate}}</label>
+                  <ngx-editor-menu [editor]="optionCEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor [editor]="optionCEditor" [(ngModel)]="optionC" [disabled]="false"></ngx-editor>
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label>{{'Option D' | translate}}</label>
+                  <ngx-editor-menu [editor]="optionDEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                  <ngx-editor [editor]="optionDEditor" [(ngModel)]="optionD" [disabled]="false"></ngx-editor>
+                </div>
+
+                <div class="form-group col-lg-6 {{answerError}}" style="margin-bottom:unset">
+                  <label>{{'Answer' | translate}}</label>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio" id="A"  (change)="contentType($event)" value="A"> A </label>&nbsp;
+                    <label><input type="radio" name="optradio" id="B" (change)="contentType($event)" value="B"> B </label>&nbsp;
+                    <label><input type="radio" name="optradio" id="C" (change)="contentType($event)" value="C"> C </label>&nbsp;
+                    <label><input type="radio" name="optradio" id="D"  (change)="contentType($event)" value="D"> D </label>&nbsp;
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-warning" style="margin-right: 10px;" *ngIf="!update" (click)="addQuestion()">{{'Add' | translate}}</button>
+            <button type="button" class="btn btn-warning" style="margin-right: 10px;" *ngIf="update" (click)="editQuestionById()">{{'Update' | translate}}</button>
+            <button type="button" class="btn btn-primary" style="margin-right: 10px;" (click)="close()">{{'Close' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box box-solid" *ngIf="edit">
+      <div class="box-header">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;float: right;" (click)="deleteQuestions()">{{'Delete Questions' | translate}}</button>
+        <h3 class="box-title">{{'Questions' | translate}}</h3>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table1>
+              <thead>
+              <tr>
+                <th class="text-center"> <input type="checkbox"   (change)="allQuestionSelection($event)"></th>
+                  <th class="text-center">{{'SR' | translate}}</th>
+                  <th class="text-center">{{'Question' | translate}}</th>
+                  <th class="text-center">{{'Option A' | translate}}</th>
+                  <th class="text-center">{{'Option B' | translate}}</th>
+                  <th class="text-center">{{'Option C' | translate}}</th>
+                  <th class="text-center">{{'Option D' | translate}}</th>
+                  <th class="text-center">{{'Answer' | translate}}</th>
+                  <th class="text-center">{{'Action' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of questions;let i = index;">
+                  <td class="text-center">
+                    <input type="checkbox"  [(ngModel)]="item.checked" (click)="checkQuiz(i)">
+                  </td>
+                  <td class="text-center text-muted">#{{i+1}}</td>
+                  <td class="text-center"><p [innerHTML]="item.question"></p></td>
+                  <td class="text-center"><p [innerHTML]="item.optionA"></p></td>
+                  <td class="text-center"><p [innerHTML]="item.optionB"></p></td>
+                  <td class="text-center"><p [innerHTML]="item.optionC"></p></td>
+                  <td class="text-center"><p [innerHTML]="item.optionD"></p></td>
+                  <td class="text-center"><p [innerHTML]="item.answer"></p></td>
+                  <td class="text-center">
+                    <button type="button" (click)="editQuestion(item._id)" class="btn btn-primary"><i class="fa fa-edit"></i></button>&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+          </div>
+      </div>
+    </div>
+  </section>
+</div>

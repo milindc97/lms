@@ -1,0 +1,117 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            {{'Notification' | translate}}
+        </h1>
+
+    </section>
+    <section class="content">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title text-warning">{{'Create Notification' | translate}}</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group {{titleError}}">
+                            <label>{{'Notification Title' | translate}}</label>
+                            <input placeholder="Enter Title" type="text" [(ngModel)]="notTitle" class="form-control" #title>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group {{messageError}}">
+                            <label>{{'Message' | translate}}</label>
+                            <ngx-editor-menu [editor]="messageEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                            <ngx-editor  height="100px"  [editor]="messageEditor" [placeholder]="'Enter Message'" [(ngModel)]="messageText" [disabled]="false"></ngx-editor>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group {{imageError}}" >
+                            <label>{{'Upload Image' | translate}}</label>
+                            
+                            <div class="thumbnail1 input-group  form-control {{imageError}}" style="padding: unset !important;">
+                              <p *ngIf="!uploadImage" style="padding: 6px 10px;margin: unset;">{{'Choose a Image' | translate}}</p>
+                              <p *ngIf="uploadImage" style="padding: 6px 10px;margin: unset;">{{uploadImageName}}</p>
+                             <input type="file" class="hide_file" (change)="uploadImageFile($event)" accept="image/*">
+                             <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                            </div>
+                            
+                          </div>
+                           <div class="col-lg-12" *ngIf="image !== ''">
+                            <a href="{{baseURL}}/retrieve/{{image}}/{{authS.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View Image' | translate}}</a>
+                            
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>{{'Segment' | translate}}</label><br>
+
+                                  <div class="radio">
+                                    <label><input type="radio" name="optradio" [(ngModel)]="segment" value="All"> {{'All' | translate}}</label>
+                                  </div>
+                                  <div class="radio">
+                                    <label><input type="radio" name="optradio" [(ngModel)]="segment" value="Program"> {{'By Program' | translate}}</label>
+                                  </div>
+                                  <div class="form-group {{segmentPrgError}}" *ngIf="segment == 'Program'">
+                                    <select class="form-control" [(ngModel)]="program" #segmentPrg style="width: 30%;">
+                                      <option value="select" disabled>{{'Select Program' | translate}}</option>
+                                      <option *ngFor="let prg of programData" value="{{prg.title}}">{{prg.title}}</option>
+                                    </select>
+                                  </div>
+                                  <div class="radio">
+                                    <label><input type="radio" name="optradio" [(ngModel)]="segment" value="Department"> {{'By Department' | translate}}</label>
+                                  </div>
+                                  <div class="form-group {{segmentDepError}}" *ngIf="segment == 'Department'">
+                                    <select class="form-control" [(ngModel)]="department" #segmentDep style="width: 30%;">
+                                      <option value="select" disabled>{{'Select Department' | translate}}</option>
+                                      <option *ngFor="let emp of empData" value="{{emp}}">{{emp}}</option>
+                                    </select>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <button type="button" class="btn btn-warning" (click)="sendNotification()">{{'Send' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-solid">
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+                  <thead>
+                    <tr>
+                      <th>{{'SR' | translate}}</th>
+                        <th>{{'Title' | translate}}</th>
+                        <th>{{'Messsage' | translate}}</th>
+                        <th>{{'Segment' | translate}}</th>
+                        <th>{{'Date' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of notificationArr; let i = index">
+                      <td class="text-muted">{{i+1}}</td>
+                      <td>{{item.title}}</td>
+                      <td><p [innerHTML]="item.message"></p></td>
+                      <td>{{item.segment}} ({{item.segmentId}}) </td>
+                      <td>{{item.createdAt | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</ion-content>

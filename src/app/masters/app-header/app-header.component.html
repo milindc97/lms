@@ -1,0 +1,98 @@
+
+<header class="main-header">
+    
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle text-dark " data-toggle="push-menu" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- <div class="small-box hidden-xs" style="float: left;margin: 5px 5px; width: 200px; background-color: #B0A45A; color: white;">
+      <div class="inner">
+        <span style="font-size:17px;">Not On Roll</span>
+        <span style="float: right;font-size: 20px; font-weight: bold;">0</span>
+      </div>
+    </div>
+    <div class="small-box hidden-xs" style="float: left;margin: 5px 5px; width: 200px; background-color: #ffa854; color: white;">
+      <div class="inner">
+        <span style="font-size:17px;">New Enrollenment</span>
+        <span style="float: right;font-size: 20px; font-weight: bold;">0</span>
+
+       
+      </div>
+    </div>
+    <div class="small-box hidden-xs" style="float: left;margin: 5px 5px; width: 200px;background-color: #FB500A; color: white;">
+      <div class="inner">
+        <span style="font-size:17px;">Total Employess</span>
+        <span style="float: right;font-size: 20px; font-weight: bold;">218</span>
+
+       
+      </div>
+    </div> -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown notifications-menu" *ngIf="isEmp">
+          <a href="#" class="dropdown-toggle"  [routerLink]="['/emp/active-wall']" (click)="change()" style="padding-left: unset;padding-right: 10px;">
+            <img class="fa" src="assets/img/dashboard1.png"  style="width: 55%;float: right;">
+          </a>
+        </li>
+        <li class="dropdown notifications-menu" *ngIf="isAdmin">
+          <a href="#" class="dropdown-toggle"  [routerLink]="['/admin/active-wall']" (click)="change()" style="padding-left: unset;padding-right: 10px;">
+            <img class="fa" src="assets/img/dashboard1.png"  style="width: 55%;float: right;">
+          </a>
+        </li>
+        <li class="dropdown notifications-menu" style="height: 50px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- <i class="fa fa-language text-dark" style="font-weight: bold;"></i> -->
+            <img class="fa" src="assets/img/india.png"  style="float: right;width: 65%;">
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+
+              <ul class="menu">
+                <li *ngFor="let language of translate.getLangs()" class="form-group"  style="padding: 10px; font-size: 15px;margin-bottom: unset;"> <label class="radio-inline"><input type="radio" (click)="changeLanguage(language)" name="optradio" [checked]="(language === currentLang)">{{ language }}</label></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bell-o text-dark"></i>
+            <span class="label label-danger">{{data.length}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+
+              <ul class="menu">
+                <li *ngFor="let item of data"><a href="#" style="white-space: normal; "  ><b>{{item.title}}</b><br><p [innerHTML]="item.message"></p></a></li>
+                <li *ngIf="data.length == 0"><a href="#">{{'No Notifications' | translate}}</a></li>
+                <li *ngIf="data.length > 0"><a href="#" (click)="clearNotification()">{{'CLEAR' | translate}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="assets/img/driving-training.png" class="user-image" alt="User Image">
+            <span class="hidden-xs text-dark"> {{authService.currentUserValue.salutation}} {{authService.currentUserValue.firstName}} {{authService.currentUserValue.lastName}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="user-footer" style="height: auto;">
+              <div class="pull-left" *ngIf="isEmp">
+                <a routerLink="/emp/profile" class="btn btn-default btn-flat">{{'Profile' | translate}}</a>
+              </div>
+              <div class="pull-left" *ngIf="isAdmin">
+                <a routerLink="/admin/profile" class="btn btn-default btn-flat">{{'Profile' | translate}}</a>
+              </div>
+              <div class="pull-right">
+                <a (click)="authService.logout()" class="btn btn-danger btn-flat">{{'Log out' | translate}}</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+</header>

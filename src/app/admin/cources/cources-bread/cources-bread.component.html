@@ -1,0 +1,121 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1 *ngIf="!edit">
+        <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+        {{'Create a Course' | translate}}
+      </h1>
+      <h1 *ngIf="edit">
+        <i class="fa fa-arrow-circle-left" (click)="back()" style="color: #ffbc2c;cursor: pointer;"></i>
+        {{'Edit a Course' | translate}}
+      </h1>
+    </section>
+  
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>{{'Course Code' | translate}}</label>
+                    <input placeholder="Course Code" type="text" class="form-control" value="C{{courseCode}}" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group {{keywordsError}}">
+                    <label>{{'Keywords, Description, Tags' | translate}}</label>
+                    <input placeholder="Add Keywords, Description, Tags" type="text" class="form-control" [(ngModel)]="courseKeywords" #keywordsChild>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group {{titleError}} ">
+                    <label>{{'Course Title' | translate}}</label>
+                    <input placeholder="Add Course Title" type="text" class="form-control" [(ngModel)]="courseTitle" #titleChild>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group {{descriptionError}}">
+                    <label>{{'Course Description' | translate}}</label>
+                    <textarea placeholder="Add Course Description" rows="7" class="form-control" [(ngModel)]="courseDesc" #descriptionChild></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="QuestionKDT">{{'Choose Module' | translate}}</label>
+                  
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Search" (input)="getItems($event)">
+                      </div>
+                      
+                  </div>
+                  <div class="form-group {{moduleError}}" style="border:1px solid #D2D6DE;padding: 10px;height: 172px; overflow: scroll;">
+                      <div class="checkbox" style="margin-top:unset" *ngFor="let module of allModule;let i=index">
+                        <label>
+                          <input type="checkbox" [(ngModel)]="module.checked" (click)="chooseModule(module._id,module.code, $event,i)">
+                          M{{module.code}} - {{module.title}}
+                        </label>
+                      </div>
+                  </div>
+                    <div class="form-group {{thumbnailError}}" >
+                      <label>{{'Upload Thumbnail' | translate}}</label>
+                      <div class="thumbnail1 input-group  form-control {{thumbnailError}}" style="padding: unset !important;">
+                        <p *ngIf="!uploadfile" style="padding: 6px 10px;margin: unset;">{{'Choose a thumbnail' | translate}}</p>
+                        <p *ngIf="uploadfile" style="padding: 6px 10px;margin: unset;">{{uploadfilename}}</p>
+                       <input type="file" class="hide_file" (change)="uploadThumbnailFile($event)" accept="image/*" #thumbnailChild>
+                       <span class="input-group-addon btn-primary" style="border:unset; color: white;">{{'Browse' | translate}}</span>
+                      </div>
+                      
+                    </div>
+                    <div class="col-lg-12" *ngIf="thumbnailLink !== ''">
+                      <a href="{{baseURL}}/retrieve/{{thumbnailLink}}/{{authService.currentUserValue.accessToken}}" target="_blank"><img src="assets/img/HyperLINK.png" width="13px">&nbsp;&nbsp;{{'View thumbnail' | translate}}</a>
+                      
+                     </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="QuestionKDT">{{'Question Bank' | translate}}</label>
+                  
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Search" (input)="qBSearch($event)">
+                      </div>
+                      
+                  </div>
+                  <div class="form-group" style="border:1px solid #D2D6DE;padding: 10px;height: 172px; overflow: scroll;">
+                    <div *ngFor="let item of questionBank">
+                      <label style="font-weight: unset;" >M{{item.mcode}} - {{item.title}}</label><br>
+                    </div>
+                       
+                  </div>
+                  <div class="form-group ">
+                    <label>{{'Expiry Date' | translate}}</label>
+                    <input placeholder="Enter Expiry Date" type="date" id="title" class="form-control" [(ngModel)]="expiryDate" >
+                  </div>
+                  
+                  
+                </div>
+               
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <button type="button" *ngIf="!edit"
+                class="btn btn-warning"
+                (click)="createCourse()">{{'Save' | translate}}</button>
+                <button type="button" *ngIf="edit"
+                class="btn btn-warning"
+                (click)="editCourse()">{{'Update' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            {{'Notification' | translate}}
+        </h1>
+
+    </section>
+    <section class="content">
+
+        <div class="box box-solid">
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+                  <thead>
+                    <tr>
+                      <th>{{'SR' | translate}}</th>
+                        <th>{{'Title' | translate}}</th>
+                        <th>{{'Messsage' | translate}}</th>
+                        <th>{{'Date' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of notification; let i = index">
+                      <td class="text-muted">{{i+1}}</td>
+                      <td>{{item.title}}</td>
+                      <td><p [innerHTML]="item.message"></p></td>
+                      <td>{{item.createdAt | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</ion-content>

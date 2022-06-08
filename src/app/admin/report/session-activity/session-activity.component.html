@@ -1,0 +1,50 @@
+<ion-content>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        {{'Session Activity' | translate}}
+      </h1>
+      <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="exportAsXLSX()"><i class="fa fa-download"></i></button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div>
+    </section>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <p class="text-center" *ngIf="loading">Loading...</p>
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+              <thead>
+                <tr>
+                  <th >{{'SR' | translate}}</th>
+                  <th >{{'Emp Code' | translate}}</th>
+                  <th >{{'Name' | translate}}</th>
+                  <th >{{'Mobile' | translate}}</th>
+                  <th class="text-center">{{'Last Login' | translate}}</th>
+                  <th class="text-center">{{'State' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of employeesData;let i = index">
+                  <td >{{i+1}}</td>
+                  <td >{{item.employeeCode}}</td>
+                  <td >{{item.salutation}} {{item.firstName}} {{item.lastName}}</td>
+                  <td >{{item.mobile}}</td>
+                  <td class="text-center">{{item.lastLoginOn | date:'short'}}</td>
+                  <td class="text-center">
+                      
+                    <a class="text-success" *ngIf="item.state == 'Online'; else offlineBlock"><i class="fa fa-square"></i></a>
+                    <ng-template #offlineBlock><a class="text-danger"><i class="fa fa-square"></i></a></ng-template>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+  </section>
+  </div>
+  
+    </ion-content>

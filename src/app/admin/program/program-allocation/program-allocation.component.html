@@ -1,0 +1,433 @@
+<ion-content>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1 class="text-warning">
+        {{'Allocation' | translate}}
+      </h1>
+    </section>
+    <section class="content">
+      <div class="card widget-content fm-border-radius-15 fm-bg-orangeRedLight f-gotham" id="snapshot">
+        <div class="row fm-width-100 fm-margin-unset">
+          <div class="col-lg-4 col-sm-4 col-xs-12">
+              <h1 style="margin:unset;font-weight:500">{{'Snapshot' | translate}}</h1>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-12">
+            <div class="row">
+              <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+                <div class="text-center text-white pointer"  >
+                  <div class="font-size-lg">{{'Total Employees' | translate}}</div>
+                  <h3 style="margin:unset">{{totalEmp}}</h3>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+                <div class="text-center text-white pointer">
+                  <div class="font-size-lg">{{'Assigned Employees' | translate}}</div>
+                  <h3 style="margin:unset">{{assEmp}}</h3>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+                <div class="text-center text-white pointer"> 
+                  <div class="font-size-lg">{{'Pending Employees' | translate}}</div>
+                  <h3 style="margin:unset">{{pendingEmp}}</h3>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-xs-12 fm-col-sm-6">
+                <div class="text-center text-white pointer">
+                  <div class="font-size-lg">{{'Deactive Employees' | translate}}</div>
+                  <h3 style="margin:unset">{{deacEmp}}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>{{'Search By' | translate}} &nbsp;</label>
+                <label class="radio-inline"><input type="radio" name="optradio" checked>{{'Employee Code' | translate}}</label>
+                <label class="radio-inline"><input type="radio" name="optradio">{{'Employee Name' | translate}}</label>
+                <label class="radio-inline"><input type="radio" name="optradio">{{'Department' | translate}}</label>
+              </div>
+              <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" [formControl]="employeeSearch" placeholder="Search">
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="radio-inline"><input type="radio" name="selection" [(ngModel)]="selection" value="single" (change)="selectionChange()">{{'Single' | translate}}</label>
+                <label class="radio-inline"><input type="radio" name="selection" [(ngModel)]="selection" value="multiple" (change)="selectionChange()">{{'Multiple' | translate}}</label>
+              </div> 
+            </div>
+            <div class="col-lg-12">
+              <div class="table-responsive" style="height: 300px; overflow: scroll;">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+                  <thead>
+                    <tr>
+                      <th class="text-center"><input type="checkbox" (change)="allEmployeeSelection($event)"></th>
+                      <th class="text-center">{{'Employee Code' | translate}}</th>
+                      <th class="text-center">{{'Name' | translate}}</th>
+                      <th class="text-center">{{'Department' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let emp of employeesData;let i=index">
+                      <td class="text-center"><input type="checkbox"  [(ngModel)]="emp.checked" (click)="checkEmployee(i)"></td>
+                      <td class="text-center">{{emp.employeeCode}}</td>
+                      <td class="text-center">{{emp.salutation}} {{emp.firstName}} {{emp.lastName}}</td>
+                      <td class="text-center">{{emp.department}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#program" data-toggle="tab">{{'Program Allocation' | translate}}</a></li>
+          <li><a href="#course" data-toggle="tab">{{'Course Allocation' | translate}}</a></li>
+          <li><a href="#module" data-toggle="tab">{{'Module Allocation' | translate}}</a></li>
+          <li><a href="#quiz" data-toggle="tab">{{'Quiz Allocation' | translate}}</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="program">
+            <div class="box box-solid">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label>{{'Search By' | translate}} &nbsp;</label>
+                      <label class="radio-inline"><input type="radio" name="programSelection" checked>{{'Program' | translate}}</label>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" placeholder="Search" [formControl]="programSearch">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive" style="height: 300px; overflow: scroll;">
+                  <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+                    <thead>
+                      <tr>
+                        <th class="text-center"></th>
+                        <th>{{'Program' | translate}}</th>
+                        <th>{{'Courses' | translate}}</th>
+                        <th>{{'Modules' | translate}}</th>
+                        <th>{{'Expiry Date' | translate}}</th>
+                        <!-- <th>View</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of programsData; let i=index">
+                        <td class="text-center">
+                          <input type="checkbox"  [(ngModel)]="item.checked" (click)="checkProgram(i)">
+                        </td>
+                        <td>{{item.program.title}}</td>
+                        <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let course of item.course">{{course.title}}</li></ul></td>
+                        <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let module of item.modules">{{module.title}}</li></ul></td>
+                        <td>{{item.program.expiryDate | date:'dd/MM/yyyy'}}</td>
+                        <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#programModal" (click)="showData(item,'Program')">
+                          <i class="fa fa-eye"></i>
+                        </button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <br>
+                  <div class="col-lg-4">
+                    <div class="form-group {{effectiveDateProgramError}}" >
+                      <label>{{'Effective Date' | translate}}</label>
+                      <input class="form-control" type="date" [(ngModel)]="effectiveDateProgram">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <button type="button" (click)="assignProgram()" class="btn btn-warning">{{'Assign' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="tab-pane" id="course">
+            
+            <div class="box box-solid">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label>{{'Search By' | translate}} &nbsp;</label>
+                      <label class="radio-inline"><input type="radio" name="courseSelection" checked>{{'Course' | translate}}</label>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" placeholder="Search" [formControl]="courseSearch" >
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive" style="height: 300px; overflow: scroll;">
+                  <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+                    <thead>
+                      <tr>
+                        <th class="tex-center"></th>
+                        <th>{{'Course' | translate}}</th>
+                        <!-- <th>Courses</th> -->
+                        <th>{{'Modules' | translate}}</th>
+                        <th>{{'Expiry Date' | translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of coursesData; let i=index">
+                        <td class="text-center">
+                          <input type="checkbox"  [(ngModel)]="item.checked" (click)="checkCourse(i)">
+                        </td>
+                        <td>{{item.title}}</td>
+                        <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let course of item.modulesData">{{course.title}}</li></ul></td>
+                        <td>{{item.expiryDate | date:'dd/MM/yyy'}}</td>
+                       <!-- <td><ul  style="padding: unset;"><li class="checkmark" *ngFor="let module of item.modules">{{module.title}}</li></ul></td> -->
+                       <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#courseModal" (click)="showData(item,'Course')">
+                        <i class="fa fa-eye"></i>
+                      </button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <br>
+                  <div class="col-lg-4">
+                    <div class="form-group {{effectiveDateCourseError}}">
+                      <label>{{'Effective Date' | translate}}</label>
+                      <input class="form-control" type="date" [(ngModel)]="effectiveDateCourse">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <button type="button" (click)="assignCourse()" class="btn btn-warning">{{'Assign' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div class="tab-pane" id="module">
+            <div class="box box-solid">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label>{{'Search By' | translate}} &nbsp;</label>
+                      <label class="radio-inline"><input type="radio" name="moduleSelection" checked>{{'Module' | translate}}</label>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" placeholder="Search" [formControl]="moduleSearch">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive" style="height: 300px; overflow: scroll;">
+                  <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+                    <thead>
+                      <tr>
+                        <th class="tex-center"></th>
+                        <th>{{'Module' | translate}}</th>
+                        <!-- <th>Courses</th> -->
+                        <th>{{'Quiz' | translate}}</th>
+                        <th>{{'Expiry Date' | translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of modulesData; let i=index">
+                        <td class="text-center">
+                          <input type="checkbox"  [(ngModel)]="item.checked" (click)="checkModule(i)">
+                        </td>
+                        <td>{{item.title}}</td>
+                        <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let course of item.quizData">{{course.title}}</li></ul></td>
+                        <td>{{item.expiryDate | date:'dd/MM/yyy'}}</td>
+                        <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#moduleModal" (click)="showData(item,'Module')">
+                          <i class="fa fa-eye"></i>
+                        </button></td>
+                       <!-- <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let module of item.modules">{{module.title}}</li></ul></td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <br>
+                  <div class="col-lg-4">
+                    <div class="form-group {{effectiveDateModuleError}}">
+                      <label>{{'Effective Date' | translate}}</label>
+                      <input class="form-control" type="date" [(ngModel)]="effectiveDateModule">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <button type="button" (click)="assignModule()" class="btn btn-warning">{{'Assign' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div class="tab-pane" id="quiz">
+            <div class="box box-solid">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label>{{'Search By' | translate}} &nbsp;</label>
+                      <label class="radio-inline"><input type="radio" name="quizSelection" checked>{{'Quiz' | translate}}</label>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                          <input type="text" class="form-control" placeholder="Search" [formControl]="quizSearch">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive" style="height: 300px; overflow: scroll;">
+                  <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table">
+                    <thead>
+                      <tr>
+                        <th class="tex-center"></th>
+                        <th>{{'Quiz' | translate}}</th>
+                        <th>{{'Expiry Date' | translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of quizsData; let i=index">
+                        <td class="text-center">
+                          <input type="checkbox"  [(ngModel)]="item.checked" (click)="checkQuiz(i)">
+                        </td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.expiryDate | date:'dd/MM/yyy'}}</td>
+                        <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#quizModal" (click)="showData(item,'Quiz')">
+                          <i class="fa fa-eye"></i>
+                        </button></td>
+                       <!-- <td><ul style="padding: unset;"><li class="checkmark" *ngFor="let module of item.modules">{{module.title}}</li></ul></td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <br>
+                  <div class="col-lg-4">
+                    <div class="form-group {{effectiveDateQuizError}}">
+                      <label>{{'Effective Date' | translate}}</label>
+                      <input class="form-control" type="date" [(ngModel)]="effectiveDateQuiz">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <button type="button" (click)="assingQuiz()" class="btn btn-warning">{{'Assign' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>   
+          </div>
+        </div>
+      </div> 
+    </section>  
+  </div>
+    
+  <div class="modal right fade" id="programModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+  
+        <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4> 
+        </div> -->
+  
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>Under Development
+          </p>
+        </div>
+        <!-- <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="widget-user-username">Nadia Carmichael</h3>
+          <h5 class="widget-user-desc">Lead Developer</h5>
+          <div class="panel box box-primary">
+            <div class="box-header with-border">
+              <h4 class="box-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  Courses
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="box-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+        </div> -->
+  
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+  
+  <div class="modal right fade" id="courseModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+  
+        <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4> 
+        </div> -->
+  
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>Under Development
+          </p>
+        </div>
+  
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+  
+  <div class="modal right fade" id="moduleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+  
+        <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4> 
+        </div> -->
+  
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>Under Development
+          </p>
+        </div>
+  
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+  
+  <div class="modal right fade" id="quizModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+  
+        <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4> 
+        </div> -->
+  
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>Under Development
+          </p>
+        </div>
+  
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+  
+  
+</ion-content>

@@ -1,0 +1,395 @@
+<ion-content *ngIf="isEmp">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefreshEmp($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="content-wrapper" style="background-color: white;">
+    <section class="content-header">
+      <h1>
+        <li class="dropdown notifications-menu" style="float: right; width: 40%;list-style: none;">
+          <div class="input-group dropdown-toggle search" data-toggle="dropdown">
+            <input type="text" class="form-control searchinput" placeholder="Search" (input)="getItems($event)" style="border-radius: 10px 0px 0px 10px;">
+            <span class="input-group-addon"  style="border-radius: 0px 10px 10px 0px;"><i class="fa fa-search"></i></span>
+          </div>
+          <ul class="dropdown-menu" style="width: 100%; background: #F6FAFD;overflow: scroll;
+          overflow-x: hidden;max-height: 200px;margin: unset;">
+
+                <li *ngFor="let item of searchProgram">
+                      <a style="color: black; padding: 10px;" [routerLink]="['/emp/program/course',item.id]"><b>{{item.title}}</b><br>{{item.desc}}</a>
+                </li>
+                <li *ngFor="let item of searchCourse">
+                  <a style="color: black; padding: 10px;cursor: pointer;" (click)="getModule(item.id,'Course')"><b>{{item.title}}</b><br>{{item.desc}}</a>
+                </li>
+                <li *ngFor="let item of searchModule">
+                  <a style="color: black; padding: 10px;cursor: pointer;" (click)="getModule(item.id,'Module')"><b>{{item.title}}</b><br>{{item.desc}}</a>
+                </li>
+                <li *ngFor="let item of searchQuiz">
+                  <a style="color: rgb(119, 119, 119); padding: 10px;" [routerLink]="['/emp/quiz/overview/',item.id,0,'Quiz']"><b>{{item.title}}</b><br>{{item.desc}}</a>
+                </li>
+                <li *ngIf="searchProgram.length == 0 && searchCourse.length == 0 && searchModule.length == 0 && searchQuiz.length == 0 && val != ''"><a>{{'No Result Found' | translate}}</a></li>
+                <li *ngIf="searchProgram.length == 0 && searchCourse.length == 0 && searchModule.length == 0 && searchQuiz.length == 0 && val == ''"><a>{{'Start Typing' | translate}}...</a></li>
+         
+          </ul>
+        </li>
+        <!-- <div class="input-group" style="float: right; width: 40%; border-radius: 10px;">
+          <input type="text" class="form-control" placeholder="Search" (input)="getItems($event)" >
+          <span class="input-group-addon"><i class="fa fa-search"></i></span><br>
+          <ul *ngIf="search.length > 0">
+            <li *ngFor="let item of search">{{item.title}}</li>
+          </ul>
+        </div> -->
+        {{'Dashboard' | translate}}
+      </h1>
+    </section>
+    <section class="content">
+      <div class="flex-box hide-card">
+        <div class="flex-item-2 hidden-md hidden-lg" style="margin-bottom: 10px;">
+          <div class="quote" style="margin-bottom: 10px;height: 100%;">
+            <div class="row">
+              <div class="col-sm-3 col-xs-3">
+                <img src="assets/img/quote-left.png" style="width: 70px;margin: 0 auto;display: block;">
+              </div>
+              <div class="col-sm-9 col-xs-9" style="padding-left: unset;">
+                <span>{{topEmployee.salutation}} {{topEmployee.firstName}} {{topEmployee.lastName}}. {{topMessage}} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-item-1" style="margin-bottom: 10px;">
+            <div class="text-center person" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;height: 100%;">
+              <img src="assets/img/user.png" class="image">
+              <h4 class="image-name">{{topEmployee.salutation}} {{topEmployee.firstName}} {{topEmployee.lastName}}</h4>
+              <h5>{{topEmployee.department}}</h5>
+              <h5 class="text-warning" style="font-weight: bold;text-transform: uppercase;"><img src="assets/img/trophy.png" width="20">&nbsp;Top #1 Employee&nbsp;<img src="assets/img/trophy.png" width="20"></h5>
+              <!-- <button class="btn btn-primary" style="white-space: pre-line;">3 Programs away from your target</button> -->
+            </div>
+        </div>
+        <div class="flex-item-2" style="margin-bottom: 10px;">
+          <div style="height: 100%;">
+          <div class="quote hidden-sm hidden-xs" style="margin-bottom: 10px;">
+            <div class="row">
+              <div class="col-sm-2 col-xs-2 col-lg-2 col-md-2">
+                <img src="assets/img/quote-left.png" style="width: 70px;margin: 0 auto;display: block;">
+              </div>
+              <div class="col-sm-10 col-xs-10 col-lg-10 col-md-10" style="padding-left: unset;">
+                <span>{{topEmployee.salutation}} {{topEmployee.firstName}} {{topEmployee.lastName}}. {{topMessage}} </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-xs-12 col-lg-6 col-md-6" style="padding:unset;">
+              <div class="card" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;height: 200px;padding: 20px;">
+                <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
+                  [options]="options" [name]="name" [bottomLabel]="bottomLabel"></rg-gauge-chart>
+              </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-lg-6 col-md-6" style="padding:unset">
+              <div class="card"
+                style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;height: 200px;padding: 20px;">
+                <h5 class="text-center" style="margin: unset;">{{'Quiz and Program' | translate}}</h5>
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                  [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" height="100">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row hide-card">
+        <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+          <div class="badges" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;height: 235px;">
+            <!-- <h5 style="font-weight: bold;float: right;">View all</h5> -->
+            <h5 style="font-weight: bold;">{{'Your Badges' | translate}}</h5>
+            <hr class="horizontal">
+            <div *ngFor="let item of allQuizScore;let i=index">
+              <div *ngIf="i <5">
+                <h5 style="font-weight: bold;float: right;margin: unset;">{{item.score}}%</h5>
+                <h5 style="font-weight: bold;">{{item.quizData[0].title}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" style="margin-bottom: 10px;">
+          <div class="card" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 15px;">
+            <div class="nav-tabs-custom" style="padding: 13px;border-radius: 15px;">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#pending" data-toggle="tab">{{'Pending Program' | translate}}</a></li>
+                <li><a href="#completed" data-toggle="tab">{{'Completed Program' | translate}}</a></li>
+                <li style="float: right;font-weight: bold;"><a
+                    style="color: #3C76B5 !important;padding-left: unset; cursor: pointer;"
+                    [routerLink]="['/emp/program']">{{'All Programs' | translate}}</a></li>
+
+              </ul>
+              <div class="tab-content" style="padding: unset !important;">
+                <div class="active tab-pane" id="pending">
+                  <div scrollX="true" class="wide-as-needed" scrollbar="false">
+                    <div class="category-item" *ngFor="let pending of pendingProgram">
+                      <div class="card"
+                        style="width:300px; padding: 20px;border:1px solid lightgray;border-radius: 10px;">
+                        <!-- <i class="fa fa-ellipsis-v" style="float: right;"></i> -->
+                        <h4 class="text-primary" style="font-weight: bold;margin-bottom: unset;">
+                          {{pending.programData.title}}</h4>
+                        <h5 class="text-primary" style="font-weight: bold;margin-top: unset;opacity: 0.8; overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;">
+                          {{pending.programData.description}}
+                        </h5>
+                        <ion-progress-bar [value]="(pending.score)/100"></ion-progress-bar>
+                        <div class="row" style="margin-top: 10px;">
+                          <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3" style="padding-left: unset;">
+                            <div class="number text-center" style="background-color: #4BB543;">
+                              {{pending.modulesWatchedCount}}</div>
+                          </div>
+                          <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3" style="padding-left: unset;">
+                            <div class="number text-center" style="background-color: #ffbc2c;">{{pending.modulesCount}}
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6 text-right" style="padding-right: unset;">
+                            <button class="btn btn-primary"
+                              [routerLink]="['/emp/program/course',pending.programData._id]">{{'Start' | translate}}</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="category-item text-center" *ngIf="pendingProgram.length == 0">
+                      <img src="assets/img/nodatafound.jpg" width="145px">
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="completed">
+                  <div scrollX="true" class="wide-as-needed" scrollbar="false">
+                    <div >
+                      <div class="category-item" *ngFor="let comp of completedProgram" >
+                        <div class="card"
+                          style="width:300px; padding: 20px;border:1px solid lightgray;border-radius: 10px;">
+                          <!-- <i class="fa fa-ellipsis-v" style="float: right;"></i> -->
+                          <h4 class="text-primary" style="font-weight: bold;margin-bottom: unset;">
+                            {{comp.programData.title}}</h4>
+                          <h5 class="text-primary" style="font-weight: bold;margin-top: unset;opacity: 0.8;overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;">
+                            {{comp.programData.description}}
+                          </h5>
+                          <ion-progress-bar [value]="(comp.score)/100"></ion-progress-bar>
+                          <div class="row" style="margin-top: 10px;">
+                            <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3" style="padding-left: unset;">
+                              <div class="number text-center" style="background-color: #4BB543;">
+                                {{comp.modulesWatchedCount}}</div>
+                            </div>
+                            <div class="col-sm-3 col-xs-3 col-lg-3 col-md-3" style="padding-left: unset;">
+                              <div class="number text-center" style="background-color: #ffbc2c;">{{comp.modulesCount}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="category-item text-center" *ngIf="completedProgram.length == 0">
+                      <img src="assets/img/nodatafound.jpg" width="145px">
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-pane -->
+              </div>
+              <!-- /.tab-content -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row hide-card" *ngIf="allocatedProgram.length > 0">
+        <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+          <h4 style="font-weight: bold;">{{'Todays Allocated Programs' | translate}}</h4>
+          <div scrollX="true" class="wide-as-needed" scrollbar="false">
+            <div class="category-item " *ngFor="let item of allocatedProgram" style="cursor: pointer;"
+              [routerLink]="['/emp/program/course',item.programData[0]._id]">
+              <div style="border:1px solid lightgray;border-radius: 10px;    width: 180px;">
+                <img src="{{baseURL}}/retrieve/{{item.programData[0].thumbnail}}/{{authS.currentUserValue.accessToken}}" onerror="this.onerror=null;this.src='assets/img/image-analysis.png';"
+                  style="width: 180px; height:130px;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                <h4 style="font-weight: bold;margin-bottom: 5px;padding-left: 10px;overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;">{{item.programData[0].title}}</h4>
+                <h5 style="font-weight: bold;margin-top: unset;padding-left: 10px; overflow: hidden;
+                text-overflow: ellipsis;white-space: nowrap;">{{item.programData[0].description}}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row hide-card">
+        <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+          <div class="card" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;padding: 10px;">
+          <h4 style="font-weight: bold;">{{'Weekly Quiz Statistics' | translate}}</h4>
+          <div class="row">
+            <div class="col-sm-2 col-xs-2 col-lg-2 col-md-2">
+              <img src="assets/img/medal.png" width="150px">
+            </div>
+            <div class="col-sm-10 col-xs-10 col-lg-10 col-md-10">
+              <h5 style="font-weight: bold;">{{'Pro Badge' | translate}}</h5>
+              <p>{{'Get a Pro Badge when you complete your weekly quiz as per your performance!' | translate}}</p>
+              <div id="steps">
+
+                <div class="step active" *ngFor="let item of weeks;let i=index" attr.value="Week {{item.week+1}}">
+                  {{item.count}}</div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row show-card" style="vertical-align: middle;margin: 30px;">
+        <div class="col-md-12">
+          <div class="alert alert-danger alert-dismissible">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            Site best viewed at 1280 x 768 resolution
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isAdmin">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefreshAdmin($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="content-wrapper" style="background-color: white;">
+    <section class="content-header">
+      <h1>
+        {{'Dashboard' | translate }}
+      </h1>
+      <div class="create-box">
+        <!-- <button type="button" class="btn btn-primary" (click)="export('Employee.csv')"><i class="fa fa-download"></i></button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+        <button type="button" class="btn btn-warning" (click)="syncEmployee()">{{'Sync ZingHR' | translate}}</button> -->
+      </div>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-bottom: 10px;">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" style="bottom: -14px;">
+              <li data-target="#myCarousel" *ngFor="let item of topEmployee;let i=index" attr.data-slide-to="{{i}}"
+                class="{{(i == 0)? 'active' : ''}}"></li>
+            </ol>
+            <div class="carousel-inner" style="border-radius:10px;">
+  
+              <div *ngFor="let item of topEmployee;let i=index"  class="item {{(i == 0)? 'active' : ''}}">
+                <div class="row slider-card">
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="assets/img/user.png" class="slider-img">
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9">
+                    <h5 class="slider-head">#{{i+1}} {{'Employee of the Month' | translate}}<img
+                        src="assets/img/upload.png" style="margin-left: 30px;width: 15px;"></h5>
+                    <h4 class="slider-head2">{{item.userDetails[0].salutation}} {{item.userDetails[0].firstName}}
+                      {{item.userDetails[0].lastName}}</h4>
+                    <p class="slider-para">{{item.userDetails[0].department}}</p>
+                  </div>
+                </div>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+          <div class="row"
+            style="background-color: #F4F4F4; margin-left: unset; margin-right: unset;border-radius: 10px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <div class="large-header-pad">
+              <h4 class="large-header">{{'Program Activity' | translate }}</h4>
+            </div>
+            <div class="row" style="padding: 10px; padding-bottom: unset;">
+              <div class="form-group" style="margin-bottom: 10px;">
+                <input type="text" class="form-control" placeholder="Search Programs" id="usr"
+                  style="font-size: 14px;border-radius: 5px;" [formControl]="searchControl">
+              </div>
+            </div>
+            <div style="height: 50vh;overflow: auto;">
+              <div class="row sales-card-pad" *ngFor="let item of programActivity;let i=index"
+                style="margin-right: unset; margin-left: unset; margin: 10px;">
+                <div class="col-lg-9 col-md-8 col-sm-10 col-xs-8" style="padding-top: 20px; padding-bottom: 10px;">
+                  <h4 style="margin-bottom: unset;font-weight: 700; color: #384257;margin-top: unset;">
+                    {{item.programDetails.title}}</h4>
+                  <h5 style="margin-top: 2px;  overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    {{item.programDetails.description}}</h5>
+                  <!-- <div class="progress" style="height:5px">
+                    <div class="progress-bar" style="width:40%;height:5px;background-color:#C43606"></div>
+                  </div> -->
+                  <ngb-progressbar type="success" [value]="item.percentage"></ngb-progressbar>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-2 col-xs-4" style="text-align: right;padding-top: 10px; ">
+                  <span style="font-size: 12px;color: #ffbc2c;">{{'Watched' | translate}}</span><br>
+                  <p style="font-size: 14px; margin-bottom: 3px;"><span class="nodays">{{item.percentage}}%</span></p>
+                  <button class="btn btn-warning" style="padding:2px 10px;"
+                    (click)="notify(item.programDetails._id)">NOTIFY</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+  
+          <div class="row"
+            style="padding: 10px; padding-bottom: unset; margin-right: unset; margin-left: unset;margin-bottom: 10px;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <canvas id="myChartCombo" width="100%" height="300px" style="width:100%; height: 300px;"></canvas>
+            </div>
+          </div>
+          <div class="flex-box" style="margin-left: unset; margin-right: unset;">
+            <div class="flex-item-1">
+              <div class="card  customer-card" style="height: 100%;">
+                <div class="large-header-pad">
+                  <h4 class="large-header" style="text-align: center;">{{'Top 20 Employee List' | translate}}</h4>
+                </div>
+                <div style="height: 38vh;overflow: auto;margin-top: 10px;">
+                  <div class="row row-customer-card" *ngFor="let item of topEmployee;let i=index">
+                    <div class="col-md-2 col-sm-3 col-xs-2" style="padding: unset;">
+                      <img src="assets/img/user.png" class="row-customer-card-img">
+                    </div>
+                    <div class="col-md-7 col-sm-6 col-xs-7">
+                      <p class="row-customer-card-name"><span style="font-weight: 600;">{{item.userDetails[0].salutation}}
+                          {{item.userDetails[0].firstName}} {{item.userDetails[0].lastName}}</span>
+                        <br>{{item.userDetails[0].department}}
+                      </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 abc" style="padding-left: unset;">
+                      <circle-progress [percent]="item.avgScore"></circle-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-item-1 sm-mt-10">
+              <div class="card customer-card" style="height: 100%;">
+                <div class="large-header-pad">
+                  <h4 class="large-header" style="text-align: center;">{{'User Requests' | translate}}</h4>
+                </div>
+                <div class="row" style="padding:50px  0;">
+                  <canvas id="myChart" style="width:100%;"></canvas>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row show-card" style="vertical-align: middle;margin: 30px;">
+        <div class="col-md-12">
+          <div class="alert alert-danger alert-dismissible">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            Site best viewed at 1280 x 768 resolution
+          </div>
+        </div>
+      </div> -->
+    </section>
+  
+  </div>
+  
+
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-content>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <button type="button" style="float: right;" class="btn btn-primary" (click)="exportAsXLSX()"><i class="fa fa-download"></i></button> &nbsp;
+        <div class="form-group " style="float: right; margin-right: 10px;">
+            <select class="form-control" style="background: #ffbc2c !important;
+            color: white; border-color: unset;" (change)="filter($event)">
+              <option value="All" selected>{{'All State' | translate}}</option>
+                <option *ngFor="let item of stateData" value="{{item._id}}">{{item.stateEmp}}</option>
+            </select>
+          </div>
+          <div class="form-group " style="float: right; margin-right: 10px;">
+            <select class="form-control" style="background: #ffbc2c !important;
+            color: white; border-color: unset;" (change)="filter($event)">
+              <option value="All" selected>{{'All Department' | translate}}</option>
+                <option *ngFor="let item of stateData" value="{{item._id}}">{{item.department}}</option>
+            </select>
+          </div>
+        {{'State and Department Wise Reports' | translate}}
+      </h1>
+      <!-- <div class="create-box">
+        <button type="button" class="btn btn-primary" (click)="export('Employee.csv')"><i
+            class="fa fa-download"></i></button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)="getData()"><i class="fa fa-refresh"></i></button> &nbsp;
+      </div> -->
+    </section>
+    <section class="content">
+      <div class="box box-solid">
+        <div class="box-body">
+          <!-- <p class="text-center" *ngIf="loading">Loading...</p> -->
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover fm-table" #table>
+                <thead>
+                    <tr>
+                      <th>{{'SR' | translate}}</th>
+                      <th>{{'Module Name' | translate}}</th>
+                      <th>{{'State' | translate}}</th>
+                      <th>{{'Department' | translate}}</th>
+                      <th>{{'Participants Count' | translate}}</th>
+                      <th>{{'Date' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of moduleWatches;let i = index">
+                      <td>{{i+1}}</td>
+                      <td>{{item.module[0][0].title}}</td>
+                      <td>{{item.user[0][0].stateEmp}}</td>
+                      <td>{{item.user[0][0].department}}</td>
+                      <td>{{item.participantsCount}}</td>
+                      <td>{{item.createdAt[0] | date:'short'}}</td>
+                    </tr>
+                  </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+</ion-content>
